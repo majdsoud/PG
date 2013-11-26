@@ -27,11 +27,11 @@
 
 # This Makefile requires GNU make.
 
-HOME = $(HOME)/engine/phoenix++-1.0
+PX_HOME = ../../engine/phoenix++-1.0
 
-include $(HOME)/Defines.mk
+include $(PX_HOME)/Defines.mk
 
-LIBS += -L$(HOME)/$(LIB_DIR) -l$(PHOENIX)
+LIBS += -L$(PX_HOME)/$(LIB_DIR) -l$(PHOENIX)
 
 WC_OBJS := yixiu.o
 
@@ -47,7 +47,7 @@ yixiu: $(WC_OBJS) $(LIB_DEP)
 	$(CXX) -fpermissive $(CFLAGS) -o $@ $(WC_OBJS) $(LIBS)
 
 %.o: %.cpp
-	$(CXX) -fpermissive $(CFLAGS) -c $< -o $@ -I$(HOME)/$(INC_DIR)
+	$(CXX) -fpermissive $(CFLAGS) -c $< -o $@ -I$(PX_HOME)/$(INC_DIR)
 
 clean:
 	rm -f $(PROGS) $(WC_OBJS)
