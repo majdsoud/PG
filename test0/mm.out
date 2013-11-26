@@ -1,0 +1,31 @@
+
+ === REPORT FOR matrix_multiply() ===
+[Numeric]
+cachesize_mb:		0
+compression:		1
+execthreads:		8
+loadthreads:		4
+membudget_mb:		800
+niothreads:		2
+niters:		1
+nshards:		1
+nvertices:		10001
+scheduler:		0
+serialized-updates:		10000
+stripesize:		1.07374e+09
+updates:		10001
+work:		10000
+[Timings]
+execute-updates:		0.014731 s
+iomgr_init:		0.000248 s
+memoryshard_create_edges:		0.002569 s
+preada_now:		0.000396s	 (count: 3, min: 9.7e-05s, max: 0.000178, avg: 0.000132s)
+runtime:		0.077005 s
+stripedio_wait_for_reads:		0.04037 s
+stripedio_wait_for_writes:		2e-05s	 (count: 3, min: 1e-06s, max: 1.7e-05, avg: 6.66667e-06s)
+[Other]
+app:	matrix_multiply
+engine:	default
+file:	/home/jbzhang/GitHub/PG/src/phoenix/X.txt
+
+此程序的运行时间为: 0.380000
