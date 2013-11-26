@@ -19,7 +19,7 @@ echo:
 clean:
 	@rm -rf bin/*
 
-INCLUDE_GC=$(GC_HOME)/ #gc: GraphChi
+INCLUDE_GC=$(GC_HOME)/example_apps #gc: GraphChi
 
 src/graphchi/%: src/graphchi/%.cpp $(HEADERS)
 	@mkdir -p bin/$(@D)
