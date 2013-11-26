@@ -31,7 +31,7 @@ include $(PX_HOME)/Defines.mk
 
 LIBS += -L$(PX_HOME)/$(LIB_DIR) -l$(PHOENIX)
 
-src/phoenix/%: src/phoenix/%.cpp $(LIB_DEP)
+src/phoenix/%: src/phoenix/%.cpp
 	@mkdir -p bin/$(@D)
 	$(CXX) -fpermissive $(CFLAGS) -c $< -o bin/$@ -I$(PX_HOME)/$(INC_DIR)
 
