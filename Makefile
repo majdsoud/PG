@@ -12,7 +12,7 @@ HEADERS=$(shell find $(GC_HOME) -name '*.hpp')
 
 all: phoenix graphchi
 phoenix: src/phoenix/yixiu
-grpahchi: src/graphchi/matrix_multiply
+graphchi: src/graphchi/matrix_multiply
 
 echo:
 	echo $(HEADERS)
