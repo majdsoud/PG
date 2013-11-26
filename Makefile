@@ -11,8 +11,8 @@ DEBUGFLAGS = -g -ggdb $(INCFLAGS)
 HEADERS=$(shell find $(GC_HOME) -name '*.hpp')
 
 all: phoenix graphchi
-phoenix: yixiu
-grpahchi: matrix_multiply
+phoenix: src/phoenix/yixiu
+grpahchi: src/grphchi/matrix_multiply
 
 echo:
 	echo $(HEADERS)
@@ -23,4 +23,23 @@ INCLUDE_GC=$(GC_HOME)/example_apps #gc: GraphChi
 
 src/graphchi/%: src/graphchi/%.cpp $(HEADERS)
 	@mkdir -p bin/$(@D)
-	$(CPP) $(CPPFLAGS) -I$(INCLUDE_GC) -I$(GC_HOME)/src $@.cpp -o bin/$@ $(LINKERFLAGS) 
+	$(CPP) $(CPPFLAGS) -I$(INCLUDE_GC) -I$(GC_HOME)/src $@.cpp -o bin/$@ $(LINKERFLAGS)
+
+
+include $(PX_HOME)/Defines.mk
+
+LIBS += -L$(PX_HOME)/$(LIB_DIR) -l$(PHOENIX)
+
+src/phoenix/%: src/phoenix/%.cpp
+	@mkdir -p bin/$(@D)
+	$(CXX) -fpermissive $(CFLAGS) -c $< -o bin/$@ -I$(PX_HOME)/$(INC_DIR)
+
+yixiu: $(WC_OBJS) $(LIB_DEP)
+	$(CXX) -fpermissive $(CFLAGS) -o $@ $(WC_OBJS) $(LIBS)
+
+%.o: %.cpp
+	$(CXX) -fpermissive $(CFLAGS) -c $< -o bin/$@ -I$(PX_HOME)/$(INC_DIR)
+
+#clean:
+#	rm -f $(PROGS) $(WC_OBJS)
+
