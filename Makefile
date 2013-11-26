@@ -8,7 +8,7 @@ CPP = g++
 CPPFLAGS = -g -O3 $(INCFLAGS)  -fopenmp -Wall -Wno-strict-aliasing 
 LINKERFLAGS = -lz
 DEBUGFLAGS = -g -ggdb $(INCFLAGS)
-HEADERS=$(shell find . -name '*.hpp')
+HEADERS=$(shell find $(GC_HOME) -name '*.hpp')
 
 all: phoenix graphchi
 phoenix: yixiu
