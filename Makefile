@@ -33,7 +33,7 @@ LIBS += -L$(PX_HOME)/$(LIB_DIR) -l$(PHOENIX)
 
 
 src/phoenix/%.o: src/phoenix/%.cpp
-	$(CXX) -fpermissive $(CFLAGS) -c $< -o bin/$@ -I$(PX_HOME)/$(INC_DIR)
+	$(CXX) -fpermissive $(CFLAGS) -c $< -o $@ -I$(PX_HOME)/$(INC_DIR)
 
 src/phoenix/%: src/phoenix/%.o
 	@mkdir -p bin/$(@D)
