@@ -10,6 +10,7 @@ LINKERFLAGS = -lz
 DEBUGFLAGS = -g -ggdb $(INCFLAGS)
 HEADERS=$(shell find $(GC_HOME) -name '*.hpp')
 
+default: all
 all: phoenix graphchi
 phoenix: src/phoenix/yixiu
 graphchi: src/graphchi/matrix_multiply
@@ -30,12 +31,12 @@ include $(PX_HOME)/Defines.mk
 
 LIBS += -L$(PX_HOME)/$(LIB_DIR) -l$(PHOENIX)
 
-src/phoenix/%: src/phoenix/%.cpp
+src/phoenix/%: src/phoenix/%.cpp $(LIB_DEP)
 	@mkdir -p bin/$(@D)
-	$(CXX) -fpermissive $(CFLAGS) -c $< -o bin/$@ -I$(PX_HOME)/$(INC_DIR)
+	$(CXX) -fpermissive $(CFLAGS) $@.cpp -o bin/$@ -I$(PX_HOME)/$(INC_DIR)
 
 yixiu: $(WC_OBJS) $(LIB_DEP)
-	$(CXX) -fpermissive $(CFLAGS) -o $@ $(WC_OBJS) $(LIBS)
+	$(CXX) -fpermissive $(CFLAGS) -o bin/$@ $(WC_OBJS) $(LIBS)
 
 %.o: %.cpp
 	$(CXX) -fpermissive $(CFLAGS) -c $< -o bin/$@ -I$(PX_HOME)/$(INC_DIR)
