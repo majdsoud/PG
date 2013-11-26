@@ -23,4 +23,4 @@ INCLUDE_GC=$(GC_HOME)/example_apps #gc: GraphChi
 
 src/graphchi/%: src/graphchi/%.cpp $(HEADERS)
 	@mkdir -p bin/$(@D)
-	$(CPP) $(CPPFLAGS) -I$(INCLUDE_GC) $@.cpp -o bin/$@ $(LINKERFLAGS) 
+	$(CPP) $(CPPFLAGS) -I$(INCLUDE_GC) -I$(GC_HOME)/src $@.cpp -o bin/$@ $(LINKERFLAGS) 
