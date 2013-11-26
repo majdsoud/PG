@@ -1,0 +1,9 @@
+在phoenix++-1.0/tests创建文件夹 yixiu
+将yixiu.cpp和Makefile拷进去
+cd phoenix++-1.0/tests/yixiu/
+然后make
+./yixiu input.txt 10000
+10000为输入文件的行数
+
+最后生成了X.txt
+

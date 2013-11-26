@@ -1,0 +1,27 @@
+phoenix output --> graphchi input
+用GraphChi弥补Phoenix纯内存做法的不足
+用GraphChi模型去弥补MapReduce计算的不足
+MapReduce + GraphChi better than MapReduce
+MapReduce + GraphChi better than GraphChi
+
+Phoenix是一个建立在P-thread基础上的，在多核平台上实现的MapReduce计算框架。
+它以实现共享内存为目的，降低了数据通信和任务调度等所产生的影响，具有运行速度快的优点。
+但受限于单机物理内存，无法处理大数据。
+
+
+Graphchi是一个采用基于以顶点为中心的计算模型，能够在单机上完成大数据的图计算。
+它的核心是名为 Parallel Sliding Windows （并行式滑动窗口，简称PSW）的模型，能够异步处理存储在硬盘上的可变图数据。
+它将硬盘当作内存来使用（传统硬盘、固态硬盘），减少随机读写硬盘的访问，加快数据处理速度。
+
+/***************************************
+最前面的那个   没实验数据，写不来了/不知道怎么写啊
+
+刚才合并phoenix和graphchi的时候，出了一些问题。
+phoenix：当直接在map阶段，每个map函数直接输出当前行（总1W行）
+	打开运行后的X.txt,发现，其实不止1W行，好像有103XX行，比正常多了几百行，有的数据多输出了。。。
+	这应该与多线程写文件有关---没加锁。。。
+	不知道怎么加锁，就只好存到keyval中，然后再输出。
+总体感觉，phoenix前期处理的那块程序有问题，可能与我读数据的方法 有关，不知道是不是用mmap这样映射会好一些
+
+
+***************************************/
