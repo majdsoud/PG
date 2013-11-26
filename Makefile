@@ -39,11 +39,11 @@ src/phoenix/%: src/phoenix/%.o
 	@mkdir -p bin/$(@D)
 	$(CXX) -fpermissive $(CFLAGS) -o bin/$@ $@.o $(LIBS)
 
-yixiu: $(WC_OBJS) $(LIB_DEP)
-	$(CXX) -fpermissive $(CFLAGS) -o bin/$@ $(WC_OBJS) $(LIBS)
+#yixiu: $(WC_OBJS) $(LIB_DEP)
+#	$(CXX) -fpermissive $(CFLAGS) -o bin/$@ $(WC_OBJS) $(LIBS)
 
-%.o: %.cpp
-	$(CXX) -fpermissive $(CFLAGS) -c $< -o bin/$@ -I$(PX_HOME)/$(INC_DIR)
+#%.o: %.cpp
+#	$(CXX) -fpermissive $(CFLAGS) -c $< -o bin/$@ -I$(PX_HOME)/$(INC_DIR)
 
 #clean:
 #	rm -f $(PROGS) $(WC_OBJS)
