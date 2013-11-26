@@ -31,9 +31,13 @@ include $(PX_HOME)/Defines.mk
 
 LIBS += -L$(PX_HOME)/$(LIB_DIR) -l$(PHOENIX)
 
-src/phoenix/%: src/phoenix/%.cpp
-	@mkdir -p bin/$(@D)
+
+src/phoenix/%.o: src/phoenix/%.cpp
 	$(CXX) -fpermissive $(CFLAGS) -c $< -o bin/$@ -I$(PX_HOME)/$(INC_DIR)
+
+src/phoenix/%: src/phoenix/%.o $(LIB_DEP)
+	@mkdir -p bin/$(@D)
+	$(CXX) -fpermissive $(CFLAGS) -o bin/$@ $@.o $(LIBS)
 
 yixiu: $(WC_OBJS) $(LIB_DEP)
 	$(CXX) -fpermissive $(CFLAGS) -o bin/$@ $(WC_OBJS) $(LIBS)
