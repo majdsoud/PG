@@ -27,7 +27,7 @@
 
 # This Makefile requires GNU make.
 
-HOME = /home/jbzhang/program/phoenix++-1.0
+HOME = $(HOME)/engine/phoenix++-1.0
 
 include $(HOME)/Defines.mk
 
