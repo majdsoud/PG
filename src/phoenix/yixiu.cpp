@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
 	char temp3[lineAll][10];
 	int *yyy = (int *)malloc(lineAll*sizeof(int));
 
-	while(fin.getline(line, sizeof(line)))
+	while(fin.getline(line, sizeof(line)) && lineNum <= lineAll)
 	{
 		std::stringstream word(line);
 		word >> x;
