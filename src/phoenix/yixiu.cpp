@@ -113,7 +113,7 @@ int main(int argc, char *argv[])
 		word >> y;
 		word >> z;
 		word >> yy;
-		if(strcmp(yy.c_str(),"y")==0)
+		if(strcmp(yy.c_str(),"1")==0)
 			yyy[lineNum] = 1;
 		else 
 			yyy[lineNum] = 0;
@@ -150,7 +150,8 @@ for (int i=0;i<lineAll;i++){
 
 	fin.clear();
 	fin.close();
-
+	free(yyy);
+	delete [] strMeta;
 	printf("Finish\n");
 	
     return 0;
