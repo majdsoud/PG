@@ -178,7 +178,7 @@ int main(int argc, char *argv[]) {
         CHECK_ERROR(close(fd_A) < 0);
         CHECK_ERROR(close(fd_B) < 0);
 
-	CHECK_ERROR((fd_B = open(fname_B,O_CREAT | O_TEXT | O_RDWR,S_IRWXU)) < 0);
+	CHECK_ERROR((fd_B = open(fname_B,O_CREAT | O_RDWR,S_IRWXU)) < 0);
         
         for(i=0;i<matrix_len;i++)
         {
