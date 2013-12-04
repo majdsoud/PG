@@ -5,154 +5,229 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include "map_reduce.h"
+
 #define TIMING
+#include "map_reduce.h"
 
-int lineAll = 0;
+using namespace std;
 
-std::ofstream foutx("X.txt");
-std::ofstream fouty("Y.txt");
+int num_row;
+int num_att;
+int num_num;
+int num_col;
+double shold_dist = 0.15;
+vector<int> attribute;
 
-struct stringMeta {
-	char* str1;
-	char* str2;
-	char* str3;
+ofstream foutx("X.txt");
+ofstream fouty("Y.txt");
+
+struct stringMeta{
 	int id;
-
-	stringMeta() { str1 = NULL; str2 = NULL; str3 = NULL; id  = -1; }
-    stringMeta(char* s1,char* s2,char* s3, int id) { this->id = id; this->str1 = s1;this->str2 = s2;this->str3 = s3; }
-
-    //void dump() { printf("#%d:%s\n",id,str1); }
+	vector<string> vtstr;
+	double* vtdou;
+	stringMeta(){id=-1;}
+	stringMeta(int id, vector<string> vs, double* vd){this->id=id; vtstr = vs; vtdou = vd;}
 };
+	
+char * fname;
 
+void parse_command_line(int argc, char **argv) 
+{
+    int c;
+    extern char *optarg;
+    while ((c = getopt(argc, argv, "f:r:a:n:c:e:")) != EOF) {
+        switch (c) {
+			case 'f':
+                fname = optarg;
+			break;
+            case 'r':
+                num_row = atoi(optarg);
+			break;
+            case 'a':
+                num_att = atoi(optarg);
+                break;
+            case 'n':
+                num_num = atoi(optarg);
+                break;
+			case 'c':
+                num_col = atoi(optarg);
+                break;
+			case 'e':{
+ 				char *ch = optarg;
+		   		int len = strlen(optarg);
+				int i = 0;
+				int start;
+				int flag = 0;
+				while(i < len){	
+					if(i < len && flag == 1){
+						++i;	
+					}
+					flag = 1;
+					start = i;			
+					while(i < len && *(ch+i) != ':') 
+						++i;
+					*(ch+i) = 0;
+					int ttmp = atoi(optarg + start);
+					attribute.push_back(ttmp);
+				}
+            }break;
+			case '?':
+                printf("Usage: -f <input file> -r <num row> -a <num attribute> -n <num number> -c <num eg> -e <eg,like 1:3:10>\n");
+                exit(1);
+        }
+    }
+}
 
-class YixiuMR : public MapReduce<YixiuMR, stringMeta, int , std::string >
+class YixiuMR : public MapReduce<YixiuMR, stringMeta, int , string >
 {
 	stringMeta* strMeta;
-
 public:
   	YixiuMR(stringMeta* strMeta) : strMeta(strMeta){}
 
     void *locate (data_type *data, uint64_t len) const
     {
-        return data->str1;
+        return &data->id;
     }
 
     void map(data_type& p, map_container& out) const
-    {
-		std::string word1= "";
-		std::string word2;
-		int n =0;
-		//printf("1:%s 2:%s 3:%s\n",p.str1,p.str2,p.str3);
-		for(int i = 0; i < lineAll ; i++) 
-			if(p.id!=i){
-				if (strcmp(p.str1,strMeta[i].str1) == 0)
-				{
-					if (strcmp(p.str2,strMeta[i].str2) == 0)
-					{
-						if (strcmp(p.str3,strMeta[i].str3) == 0)
-						{
-							word1 += "\t";
-							std::stringstream stmp1; 
-							stmp1 << (i+1);
-							std::string tmp1 = stmp1.str();
-							n++;
-							word1 += tmp1;
-						}
+    {	
+		string tmp1 = "";
+		string tmp2 = "";
+		int equalnum = 0;
+		for(int i = 0; i < num_row; i++){
+			if(p.id!=i+1){
+				int isequal = 1;
+				for(int j = 0; j < num_col; j++){
+					if(p.vtstr[j] != strMeta[i].vtstr[j]){
+						isequal = 0;
+						break;
+					}
+				}
+				if(isequal){
+					double cur_dist = 0;
+					for(int k = 0; k < num_col; k++){
+						cur_dist +=  (p.vtdou[k] - strMeta[i].vtdou[k]) * (p.vtdou[k] - strMeta[i].vtdou[k]);
+					}
+					if (shold_dist * shold_dist < cur_dist){
+						equalnum++;
+						stringstream stmp2;
+						stmp2 << (i+1);
+						tmp1 += "\t";
+						tmp1 += stmp2.str();
 					}
 				}
 			}
-		std::stringstream stmp2; 
-		stmp2 << (p.id+1);
-		std::string tmp2=stmp2.str();
-		word2 = tmp2;
-		word2 += "\t";
-		if(n == 0){
-			word2 += "1\t0";
-		}else{
-			std::stringstream stmp3; 
-			stmp3 << n;
-			std::string tmp3 = stmp3.str();
-			word2 += tmp3;
-			word2 += word1;
 		}
-		word2 += "\n";
-		//std::cout<<(p.id+1)<<" "<<word2<<std::endl;
-        emit_intermediate(out, (p.id+1), word2);
-		//foutx << word2;
-    }
+		if(equalnum == 0)
+			tmp2 += "1\t0";
+		else{
+			stringstream stmp3; 
+			stmp3 << (equalnum);
+			tmp2 += stmp3.str();
+			tmp2 += tmp1;
+		}		
+		tmp2 += "\n";
+        emit_intermediate(out, (p.id), tmp2);
+	}
 };
 
 int main(int argc, char *argv[]) 
 {
-
 	struct timespec begin, end;
 	get_time (begin);
-
-	char * fname;
-	fname = argv[1];
-	lineAll = atoi(argv[2]);
-	stringMeta* strMeta = new stringMeta[lineAll];
-	
-	std::ifstream fin(fname);
-	char line[100]={};
-	std::string x = "";
-	std::string y = "";
-	std::string z = "";
-	std::string yy = "";
-	int lineNum = 0;
-	char temp1[lineAll][10];
-	char temp2[lineAll][10];
-	char temp3[lineAll][10];
-	int *yyy = (int *)malloc(lineAll*sizeof(int));
-
-	while(fin.getline(line, sizeof(line)) && lineNum <= lineAll)
-	{
-		std::stringstream word(line);
-		word >> x;
-		word >> y;
-		word >> z;
-		word >> yy;
-		if(strcmp(yy.c_str(),"y")==0)
-			yyy[lineNum] = 1;
-		else 
-			yyy[lineNum] = 0;
-		strcpy( temp1[lineNum], x.c_str());
-		strcpy( temp2[lineNum], y.c_str());
-		strcpy( temp3[lineNum], z.c_str());
-		strMeta[lineNum] = stringMeta(temp1[lineNum],temp2[lineNum],temp3[lineNum],lineNum);
-		lineNum++;
+	parse_command_line(argc,argv);
+	int i,j;
+	stringMeta* strMeta = new stringMeta[num_row];
+	ifstream fin(fname);
+  	string line;
+	string tmp;
+	int Y[num_row];
+	int rownum = 0;
+	while ( getline(fin,line) && rownum < num_row){
+		stringstream word(line);
+		vector<string> vstr;
+		j = 0;
+		for(i = 0; i < num_att; i++){
+			if(i==attribute[j]){
+				word >> tmp;
+				vstr.push_back(tmp);
+				j++;
+			}
+		}
+		double* vdou = (double *)malloc(sizeof(double) * num_num);
+		for(i = 0; i < num_num; i++){
+			word >> tmp;
+			vdou[i] = atof(tmp.c_str());
+		}
+		strMeta[rownum]= stringMeta(rownum+1,vstr,vdou);
+		word >> tmp;
+		if(tmp == "yes")
+			Y[rownum]=1;
+		else
+			Y[rownum]=0;
+		rownum++;
 	}
 	get_time (end);
     print_time("reading:", begin, end);
 
-fouty<<"2\t"<<lineAll<<std::endl;
-fouty<<"1\t0"<<std::endl;
-for (int i=0;i<lineAll;i++){
-	if(yyy[i])
-		fouty<<"1\t0\n";
-	else
-		fouty<<"0\t1\n";
-}
+/*
+	// Output the strMeta
+	for(i = 0; i < num_row; i++){
+		cout<<strMeta[i].id<<":";
+		for(j=0;j<num_col;j++)
+			cout<<" "<<strMeta[i].vtstr[j];
+		cout<<endl;
+	}
+
+
+	for(i = 0; i < num_row; i++){
+		cout<<strMeta[i].id<<":";
+		for(j=0;j<num_num;j++)
+			cout<<" "<<strMeta[i].vtdou[j];
+		cout<<endl;
+	}
+*/
+	get_time (begin);
+	fouty <<"2\t"<< num_row <<endl;
+	fouty << "yes\tno" << endl; 
+	for(i = 0; i < num_row; i++){
+		if(Y[i])
+			fouty << "1\t0\n";
+		else
+			fouty << "0\t1\n";
+	}
+	get_time (end);
+    print_time("writing Y:", begin, end);
 
 	get_time (begin);
 	YixiuMR* mapReduce = new YixiuMR(strMeta);
 	std::vector<YixiuMR::keyval> result;
-	CHECK_ERROR(mapReduce->run(strMeta,lineAll,result) < 0);
+	CHECK_ERROR(mapReduce->run(strMeta,num_row,result) < 0);
 	get_time (end);
-    print_time("calculating:", begin, end);
+    print_time("Calculating:", begin, end);
 
-    for (int  i = 0; i < lineAll; i++)
-    {
-		//foutx << result[i].val << "\t";
+	get_time (begin);
+
+	for (i = 0; i < num_row; i++)
+	{
+		foutx << result[i].key << "\t";
 		foutx << result[i].val;
     }
+	get_time (end);
+    print_time("writing X:", begin, end);
 
 	fin.clear();
 	fin.close();
-	free(yyy);
-	delete [] strMeta;
-	printf("Finish\n");
-	
+	foutx.close();
+	fouty.close();
+
+	for(i = 0; i < num_row; i++){
+		vector<string> vTemp; 
+		vTemp.swap(strMeta[i].vtstr);
+		delete[] strMeta[i].vtdou;
+	}
+	delete[] strMeta;
+
+	printf("\nFinish\n\n");
     return 0;
 }
