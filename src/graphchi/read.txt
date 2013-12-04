@@ -1,7 +1,0 @@
-将matrix_multiply.cpp拷贝到graphchi/example_apps内
-在graphchi主文件夹下，  make example_apps/matrix_multiply
-这会再graphchi/bin/example_apps文件夹下生成 matrix_multiply
-在graphchi主文件夹下，  bin/example_apps/matrix_multiply file1 ~/data/X.txt file2 ~/data/Y.txt
-~/data/x.txt为X.txt的文件路径   ~/data/y.txt为Y.txt的文件路径  Y.txt为phoenix产生的
-
-在graphchi主文件夹下，会生成output.txt
