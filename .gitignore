@@ -1,6 +1,10 @@
 #backup
 backup
 
+#data file
+X.*
+Y.*
+
 # Compiled Object files
 *.slo
 *.lo
