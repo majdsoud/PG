@@ -11,7 +11,8 @@ DEBUGFLAGS = -g -ggdb $(INCFLAGS)
 HEADERS=$(shell find $(GC_HOME) -name '*.hpp')
 
 default: all
-all: phoenix graphchi
+all: phoenix graphchi hybird
+
 phoenix: src/phoenix/yixiu
 graphchi: src/graphchi/matrix_multiply
 
@@ -38,13 +39,4 @@ src/phoenix/%.o: src/phoenix/%.cpp
 src/phoenix/%: src/phoenix/%.o
 	@mkdir -p bin/$(@D)
 	$(CXX) -fpermissive $(CFLAGS) -o bin/$@ $@.o $(LIBS)
-
-#yixiu: $(WC_OBJS) $(LIB_DEP)
-#	$(CXX) -fpermissive $(CFLAGS) -o bin/$@ $(WC_OBJS) $(LIBS)
-
-#%.o: %.cpp
-#	$(CXX) -fpermissive $(CFLAGS) -c $< -o bin/$@ -I$(PX_HOME)/$(INC_DIR)
-
-#clean:
-#	rm -f $(PROGS) $(WC_OBJS)
 
