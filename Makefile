@@ -8,7 +8,6 @@
 ##Step 1: gm_sparse_graphchi.cpp
 ## Step 2: mm_sparse_graphchi.cpp
 
-
 HOME=.
 GC_HOME=$(HOME)/engine/graphchi-cpp
 PX_HOME=$(HOME)/engine/phoenix++-1.0
@@ -35,10 +34,9 @@ clean:
 
 INCLUDE_GC=$(GC_HOME)/example_apps #gc: GraphChi
 
-src/%: src/%.cpp $(HEADERS)
+src/%: $(phoenix).cpp $(HEADERS)
 	@mkdir -p bin/$(@D)
 	$(CPP) $(CPPFLAGS) -I$(INCLUDE_GC) -I$(GC_HOME)/src $@.cpp -o bin/$@ $(LINKERFLAGS)
-
 
 include $(PX_HOME)/Defines.mk
 
