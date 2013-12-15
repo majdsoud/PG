@@ -16,10 +16,10 @@ mm_dense_phoenix: %.o
 	@mkdir -p $(HOME)/bin/$(@D)
 	$(CXX) -fpermissive $(CFLAGS) -o $(HOME)/bin/$@ $@.o $(LIBS)
 
-%.o: %.cpp
+%.o : %.cpp
 	$(CXX) -fpermissive $(CFLAGS) -c $< -o $@ -I$(PX_HOME)/$(INC_DIR)
 
-%: %.o
+% : %.o
 	@mkdir -p $(HOME)/bin/$(@D)
 	$(CXX) -fpermissive $(CFLAGS) -o $(HOME)/bin/$@ $@.o $(LIBS)
 
