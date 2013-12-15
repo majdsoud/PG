@@ -1,6 +1,6 @@
 include DefinesPG.mk
 
-default: gm_dense_phoenix mm_dense_phoenix
+default: gm_dense_phoenix.o mm_dense_phoenix.o
 
 %.o: %.cpp
 	$(CXX) -fpermissive $(CFLAGS) -c $< -o $@ -I$(PX_HOME)/$(INC_DIR)
