@@ -1,14 +1,22 @@
+##1. For hybrid model: 
+##Step 1: gm_sparse_phoenix.cpp
+##Step 2: mm_sparse_graphchi.cpp
+
 include DefinesPG.mk
 
 default: \
-gm_dense_phoenix.o \
-mm_dense_phoenix.o
+gm_sparse_phoenix \
+mm_sparse_graphchi
 
-%.o: %.cpp
-	$(CXX) -fpermissive $(CFLAGS) -c $< -o $@ -I$(PX_HOME)/$(INC_DIR)
-
-%: %.o
+gm_sparse_phoenix : gm_sparse_phoenix.o
 	@mkdir -p $(HOME)/bin/$(@D)
 	$(CXX) -fpermissive $(CFLAGS) -o $(HOME)/bin/$@ $@.o $(LIBS)
+
+gm_sparse_phoenix.o: gm_sparse_phoenix.cpp
+	$(CXX) -fpermissive $(CFLAGS) -c $< -o $@ -I$(PX_HOME)/$(INC_DIR)
+
+mm_sparse_graphchi: mm_sparse_graphchi.cpp
+	@mkdir -p $(HOME)/bin/$(@D)
+	$(CPP) $(CPPFLAGS) -I$(INCLUDE_GC) -I$(GC_HOME)/src $@.cpp -o $(HOME)/bin/$@ $(LINKERFLAGS)
 
 
