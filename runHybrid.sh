@@ -1,3 +1,4 @@
+GRAPHCHI_ROOT=../engine/graphchi-cpp
 BIN=../bin
 DATA=../data
 cd test
