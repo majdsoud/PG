@@ -24,7 +24,8 @@ default: all
 all: phoenix graphchi hybrid
 
 phoenix:
-( $(MAKE) Makefile.phoenix )
+	@echo ======================================== phoenix
+	( $(MAKE) Makefile.phoenix )
 
 #phoenix: src/gm_dense_phoenix src/mm_dense_phoenix
 #graphchi: src/gm_sparse_graphchi src/mm_sparse_graphchi
