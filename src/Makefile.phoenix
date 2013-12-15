@@ -6,7 +6,7 @@ default: gm_dense_phoenix mm_dense_phoenix
 	$(CXX) -fpermissive $(CFLAGS) -c $< -o $@ -I$(PX_HOME)/$(INC_DIR)
 
 %: %.o
-	@mkdir -p bin/$(@D)
-	$(CXX) -fpermissive $(CFLAGS) -o bin/$@ $@.o $(LIBS)
+	@mkdir -p $(HOME)/bin/$(@D)
+	$(CXX) -fpermissive $(CFLAGS) -o $(HOME)/bin/$@ $@.o $(LIBS)
 
 
