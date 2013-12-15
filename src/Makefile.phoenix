@@ -12,20 +12,19 @@ gm_sparse_phoenix : gm_sparse_phoenix.o
 	@mkdir -p $(HOME)/bin/$(@D)
 	$(CXX) -fpermissive $(CFLAGS) -o $(HOME)/bin/$@ $@.o $(LIBS)
 
-
 mm_dense_phoenix : mm_dense_phoenix.o
 	@mkdir -p $(HOME)/bin/$(@D)
 	$(CXX) -fpermissive $(CFLAGS) -o $(HOME)/bin/$@ $@.o $(LIBS)
 
 
-#mm_dense_phoenix.o: mm_dense_phoenix.cpp
-#	$(CXX) -fpermissive $(CFLAGS) -c $< -o $@ -I$(PX_HOME)/$(INC_DIR)
-
-#gm_sparse_phoenix.o: gm_sparse_phoenix.cpp
-#	$(CXX) -fpermissive $(CFLAGS) -c $< -o $@ -I$(PX_HOME)/$(INC_DIR)
-
-%.o : %.cpp
+mm_dense_phoenix.o: mm_dense_phoenix.cpp
 	$(CXX) -fpermissive $(CFLAGS) -c $< -o $@ -I$(PX_HOME)/$(INC_DIR)
+
+gm_sparse_phoenix.o: gm_sparse_phoenix.cpp
+	$(CXX) -fpermissive $(CFLAGS) -c $< -o $@ -I$(PX_HOME)/$(INC_DIR)
+
+#%.o : %.cpp
+#	$(CXX) -fpermissive $(CFLAGS) -c $< -o $@ -I$(PX_HOME)/$(INC_DIR)
 
 #% : %.o
 #	@mkdir -p $(HOME)/bin/$(@D)
