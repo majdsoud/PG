@@ -7,6 +7,6 @@ default: gm_dense_phoenix mm_dense_phoenix
 
 %: %.o
 	@mkdir -p $(HOME)/bin/$(@D)
-	$(CXX) -fpermissive $(CFLAGS) -o $(HOME)/bin/$@ $@.o $(LIBS)
+	$(CXX) -fpermissive $(CFLAGS) -o $(HOME)/bin/$@ $@.o $(LIBS) -l$(PX_HOME)/lib/lphoenix
 
 
