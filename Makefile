@@ -23,9 +23,12 @@ HEADERS=$(shell find $(GC_HOME) -name '*.hpp')
 default: all
 all: phoenix graphchi hybrid
 
-phoenix: src/gm_dense_phoenix src/mm_dense_phoenix
-graphchi: src/gm_sparse_graphchi src/mm_sparse_graphchi
-hybrid: src/gm_sparse_phoenix src/mm_sparse_graphchi
+phoenix:
+( $(MAKE) Makefile.phoenix )
+
+#phoenix: src/gm_dense_phoenix src/mm_dense_phoenix
+#graphchi: src/gm_sparse_graphchi src/mm_sparse_graphchi
+#hybrid: src/gm_sparse_phoenix.cpp src/mm_sparse_graphchi
 
 echo:
 	echo $(HEADERS)
@@ -34,13 +37,17 @@ clean:
 
 INCLUDE_GC=$(GC_HOME)/example_apps #gc: GraphChi
 
+include $(PX_HOME)/Defines.mk
+
+LIBS += -L$(PX_HOME)/$(LIB_DIR) -l$(PHOENIX)
+
+src/%: src/%.cpp
+	
+
 src/%: $(phoenix).cpp $(HEADERS)
 	@mkdir -p bin/$(@D)
 	$(CPP) $(CPPFLAGS) -I$(INCLUDE_GC) -I$(GC_HOME)/src $@.cpp -o bin/$@ $(LINKERFLAGS)
 
-include $(PX_HOME)/Defines.mk
-
-LIBS += -L$(PX_HOME)/$(LIB_DIR) -l$(PHOENIX)
 
 src/%.o: src/%.cpp
 	$(CXX) -fpermissive $(CFLAGS) -c $< -o $@ -I$(PX_HOME)/$(INC_DIR)
