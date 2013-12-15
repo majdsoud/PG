@@ -2,7 +2,7 @@ HOME=..
 GC_HOME=$(HOME)/engine/graphchi-cpp
 PX_HOME=$(HOME)/engine/phoenix++-1.0
 
-INCFLAGS = -I/usr/local/include/ -I./src/
+INCFLAGS = -I/usr/local/include/ -I$(PX_HOME)/include/
 
 CPP = g++
 CPPFLAGS = -g -O3 $(INCFLAGS)  -fopenmp -Wall -Wno-strict-aliasing 
