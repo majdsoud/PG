@@ -5,8 +5,8 @@
 include DefinesPG.mk
 
 default: \
-gm_sparse_graphchi.cpp \
-mm_sparse_graphchi.cpp
+gm_sparse_graphchi \
+mm_sparse_graphchi
 
 %: %.cpp $(HEADERS)
 	@mkdir -p $(HOME)/bin/$(@D)

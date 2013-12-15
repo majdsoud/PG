@@ -5,8 +5,16 @@
 include DefinesPG.mk
 
 default: \
-gm_dense_phoenix.cpp \
-mm_dense_phoenix.cpp
+gm_dense_phoenix \
+mm_dense_phoenix
+
+gm_dense_phoenix: %.o
+	@mkdir -p $(HOME)/bin/$(@D)
+	$(CXX) -fpermissive $(CFLAGS) -o $(HOME)/bin/$@ $@.o $(LIBS)
+
+mm_dense_phoenix: %.o
+	@mkdir -p $(HOME)/bin/$(@D)
+	$(CXX) -fpermissive $(CFLAGS) -o $(HOME)/bin/$@ $@.o $(LIBS)
 
 %.o: %.cpp
 	$(CXX) -fpermissive $(CFLAGS) -c $< -o $@ -I$(PX_HOME)/$(INC_DIR)
