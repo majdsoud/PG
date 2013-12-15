@@ -1,0 +1,16 @@
+##3. For grapchi:
+##Step 1: gm_sparse_graphchi.cpp
+## Step 2: mm_sparse_graphchi.cpp
+
+include DefinesPG.mk
+
+default: \
+gm_sparse_graphchi.cpp \
+mm_sparse_graphchi.cpp
+
+%: %.cpp $(HEADERS)
+	@mkdir -p $(HOME)/bin/$(@D)
+	$(CPP) $(CPPFLAGS) -I$(INCLUDE_GC) -I$(GC_HOME)/src $@.cpp -o $(HOME)/bin/$@ $(LINKERFLAGS)
+
+
+

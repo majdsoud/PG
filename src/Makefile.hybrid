@@ -1,12 +1,8 @@
-##2. For phoenix:
-##Step 1: gm_dense_phoenix.cpp
-##Step 2: mm_dense_phoenix.cpp
-
 include DefinesPG.mk
 
 default: \
-gm_dense_phoenix.cpp \
-mm_dense_phoenix.cpp
+gm_dense_phoenix.o \
+mm_dense_phoenix.o
 
 %.o: %.cpp
 	$(CXX) -fpermissive $(CFLAGS) -c $< -o $@ -I$(PX_HOME)/$(INC_DIR)

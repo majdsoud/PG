@@ -8,13 +8,17 @@
 ##Step 1: gm_sparse_graphchi.cpp
 ## Step 2: mm_sparse_graphchi.cpp
 
-
 default: all
 all: phoenix graphchi hybrid
 
 phoenix:
 	@echo ======================================== phoenix
 	( cd src && $(MAKE) -f Makefile.phoenix )
+
+graphchi:
+	@echo ======================================== phoenix
+	( cd src && $(MAKE) -f Makefile.graphchi )
+
 
 #phoenix: src/gm_dense_phoenix src/mm_dense_phoenix
 #graphchi: src/gm_sparse_graphchi src/mm_sparse_graphchi
