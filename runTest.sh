@@ -1,4 +1,4 @@
-GRAPHCHI_ROOT=../engine/graphchi-cpp
+export GRAPHCHI_ROOT=../engine/graphchi-cpp
 BIN=../bin
 cd test
 $BIN/src/phoenix/yixiu input.txt 10000
