@@ -26,18 +26,16 @@ clean:
 	@rm -rf bin/*
 
 
-src/%: src/%.cpp
 	
+#src/%: $(phoenix).cpp $(HEADERS)
+#	@mkdir -p bin/$(@D)
+#	$(CPP) $(CPPFLAGS) -I$(INCLUDE_GC) -I$(GC_HOME)/src $@.cpp -o bin/$@ $(LINKERFLAGS)
 
-src/%: $(phoenix).cpp $(HEADERS)
-	@mkdir -p bin/$(@D)
-	$(CPP) $(CPPFLAGS) -I$(INCLUDE_GC) -I$(GC_HOME)/src $@.cpp -o bin/$@ $(LINKERFLAGS)
 
+#src/%.o: src/%.cpp
+#	$(CXX) -fpermissive $(CFLAGS) -c $< -o $@ -I$(PX_HOME)/$(INC_DIR)
 
-src/%.o: src/%.cpp
-	$(CXX) -fpermissive $(CFLAGS) -c $< -o $@ -I$(PX_HOME)/$(INC_DIR)
-
-src/%: src/%.o
-	@mkdir -p bin/$(@D)
-	$(CXX) -fpermissive $(CFLAGS) -o bin/$@ $@.o $(LIBS)
+#src/%: src/%.o
+#	@mkdir -p bin/$(@D)
+#	$(CXX) -fpermissive $(CFLAGS) -o bin/$@ $@.o $(LIBS)
 
