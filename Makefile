@@ -24,7 +24,7 @@ HEADERS=$(shell find $(GC_HOME) -name '*.hpp')
 default: all
 all: phoenix graphchi hybrid
 
-phoenix: src/gm_dense_phoenix.cpp src/mm_dense_phoenix.cpp
+phoenix: src/gm_dense_phoenix src/mm_dense_phoenix
 graphchi: src/gm_sparse_graphchi.cpp src/mm_sparse_graphchi.cpp
 hybrid: src/gm_sparse_phoenix.cpp src/mm_sparse_graphchi.cpp
 
