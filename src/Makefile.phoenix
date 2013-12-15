@@ -23,4 +23,6 @@ mm_dense_phoenix
 	@mkdir -p $(HOME)/bin/$(@D)
 	$(CXX) -fpermissive $(CFLAGS) -o $(HOME)/bin/$@ $@.o $(LIBS)
 
+clean:
+	rm -rf *.o
 

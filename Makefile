@@ -16,30 +16,16 @@ phoenix:
 	( cd src && $(MAKE) -f Makefile.phoenix )
 
 graphchi:
-	@echo ======================================== phoenix
+	@echo ======================================== graphchi
 	( cd src && $(MAKE) -f Makefile.graphchi )
 
-
-#phoenix: src/gm_dense_phoenix src/mm_dense_phoenix
-#graphchi: src/gm_sparse_graphchi src/mm_sparse_graphchi
-#hybrid: src/gm_sparse_phoenix.cpp src/mm_sparse_graphchi
+hybrid: 
+	@echo ======================================== hybrid
+	( cd src && $(MAKE) -f Makefile.hybrid )
 
 echo:
 	echo $(HEADERS)
+
 clean:
 	@rm -rf bin/*
-
-
-	
-#src/%: $(phoenix).cpp $(HEADERS)
-#	@mkdir -p bin/$(@D)
-#	$(CPP) $(CPPFLAGS) -I$(INCLUDE_GC) -I$(GC_HOME)/src $@.cpp -o bin/$@ $(LINKERFLAGS)
-
-
-#src/%.o: src/%.cpp
-#	$(CXX) -fpermissive $(CFLAGS) -c $< -o $@ -I$(PX_HOME)/$(INC_DIR)
-
-#src/%: src/%.o
-#	@mkdir -p bin/$(@D)
-#	$(CXX) -fpermissive $(CFLAGS) -o bin/$@ $@.o $(LIBS)
-
+	( cd src && rm -rf *.o )

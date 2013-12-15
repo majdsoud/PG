@@ -12,5 +12,9 @@ mm_sparse_graphchi
 	@mkdir -p $(HOME)/bin/$(@D)
 	$(CPP) $(CPPFLAGS) -I$(INCLUDE_GC) -I$(GC_HOME)/src $@.cpp -o $(HOME)/bin/$@ $(LINKERFLAGS)
 
+clean:
+	rm -rf *.o
+
+
 
 
