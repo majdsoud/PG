@@ -1,6 +1,8 @@
 #include <time.h>
 #include <string>
 #include <fcntl.h>
+#include <iostream>
+#include <fstream>
 #include "graphchi_basic_includes.hpp"
 using namespace graphchi;
 
@@ -26,8 +28,8 @@ struct VectorData{
 };
 
 VectorData vData;
-FILE *outputFile;
-int Lower = 0;
+std::ofstream foutC("output");
+double Lower = 0;
 int Upper=0;
 int NumAll;
 /* 	Read vector data */
@@ -171,12 +173,12 @@ struct MatrixMultiplyProgram : public GraphChiProgram<VertexDataType, EdgeDataTy
 				    Lower++;
 			
 				if(0 == j){
-					fprintf(outputFile,"%lf", vData.outputvector[i][j]);
+				    foutC<<vData.outputvector[i][j];
 				}else{
-					fprintf(outputFile,"\t%lf", vData.outputvector[i][j]);
+				    foutC<<"\t"<<vData.outputvector[i][j];
 				}
 			}
-			fprintf(outputFile,"\n");
+			foutC<<std::endl;
 		}
     }
 
@@ -218,8 +220,6 @@ int main(int argc, const char ** argv) {
 
 	convertVector(filename2);  // Read data in file2 to struct
 
-	outputFile = fopen("output.txt", "w");  // Open output text
-
     /* Run */
     MatrixMultiplyProgram program;
     graphchi_engine<VertexDataType, EdgeDataType> engine(filename1, nshards, scheduler, m);
@@ -232,12 +232,13 @@ std::cout << std::endl;
 std::cout << "POS: " << Lower << std::endl;
 std::cout << "Dependency Degree: " << Lower/NumAll  << std::endl;
 
+foutC.close();
+
 	/* Calculate and output the total runing time, */
     finish=clock();
     totaltime=(double)(finish-start)/CLOCKS_PER_SEC;
     printf("\n此程序的运行时间为: %.3lf\n",totaltime);
 
-	fclose(outputFile);  // Close the output file
 
     return 0;
 }

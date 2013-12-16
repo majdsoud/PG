@@ -193,8 +193,8 @@ int main(int argc, char *argv[]) {
     get_time(begin);
 	for (i = 0; i < num_row; i++){
 		for(j = 0; j < num_row; j++)
-        	if(j == result[i].key){    
-			    stringstream word(result[i].val);
+        	if(i == result[j].key){
+			    stringstream word(result[j].val);
         	    for(k = 0; k < num_row; k++){
         	        word >> tmp;
             	    int tmp1 = atoi(tmp.c_str());

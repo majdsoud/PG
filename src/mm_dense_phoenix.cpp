@@ -15,7 +15,7 @@ struct mm_data_t {
     int *matrix_B;
     int matrix_len;
     int colmun_len;
-    int* output;
+    double* output;
 };
 
 class MatrixMulMR : public MapReduce<MatrixMulMR, mm_data_t, int, int>{
@@ -23,10 +23,10 @@ class MatrixMulMR : public MapReduce<MatrixMulMR, mm_data_t, int, int>{
     int matrix_size;
     int column_size;
     int row;
-    int *output;
+    double *output;
 
 public:
-    MatrixMulMR(int* _mA, int* _mB, int size, int col, int* out) : 
+    MatrixMulMR(int* _mA, int* _mB, int size, int col, double* out) : 
         matrix_A(_mA), matrix_B(_mB), matrix_size(size),column_size(col), row(0), output(out) {}
         
     void* locate(mm_data_t* d, uint64_t len) const{
@@ -37,12 +37,17 @@ public:
         int* a_ptr = data.matrix_A + data.row_num*data.matrix_len + 0;
         int* b_ptr = data.matrix_B + 0;
         
-        int* output = data.output + data.row_num*data.colmun_len;
+        double* output = data.output + data.row_num*data.colmun_len;
+        int num = 0;
         for(int i = 0; i < data.matrix_len ; i++) {
+            if (a_ptr[i] == 1)  num++;
             for(int j=0;j<data.colmun_len ; j++) {
                 output[j] += a_ptr[i] * b_ptr[j];
             }
             b_ptr += data.colmun_len;
+        }
+        for(int j=0;j<data.colmun_len ; j++) {
+            output[j] /= num;
         }
     }
 
@@ -65,7 +70,7 @@ public:
 
 int main(int argc, char *argv[]) {
     printf("Start mm_dense_phoenix\n");
-    int i;
+    int i,j;
     int fd_A, fd_B, file_size1,file_size2;
     int * fdata_A, *fdata_B;
     int matrix_len, matrix_collen, row_block_len;
@@ -133,7 +138,7 @@ int main(int argc, char *argv[]) {
     CHECK_ERROR (ret != file_size2);
 #endif
 
-    int *output = new int[matrix_len*matrix_collen];
+    double *output = new double[matrix_len*matrix_collen];
 
     printf("MatrixMult: Calling MapReduce Scheduler Matrix Multiplication\n");
 
@@ -148,15 +153,26 @@ int main(int argc, char *argv[]) {
     print_time("library", begin, end);
 
     get_time (begin);
-    ofstream foutC("Output");
-    for(i=0;i<matrix_len*matrix_collen;i++){
-	    foutC<< "\t"<<output[i];
-	    if((i+1)%matrix_collen == 0){
-	        foutC<<endl;
-	    }
+    ofstream foutC("output");
+    
+    double Lower = 0;
+    for(i=0;i<matrix_len;i++){
+        for(j=0;j<matrix_collen;j++){
+            if (output[i*matrix_collen+j] == 1) Lower++;
+            if(j==0)
+                foutC<<output[i*matrix_collen+j];
+	        else 
+	            foutC<< "\t"<<output[i*matrix_collen+j];     
+        }
+        foutC<<endl;
     }
 
+
     printf("MatrixMult: MapReduce Completed\n");
+std::cout << std::endl;
+std::cout << "POS: " << Lower << std::endl;
+std::cout << "Dependency Degree: " << Lower/matrix_len << std::endl;
+std::cout << std::endl;
 
     delete[] output;
 
@@ -173,6 +189,8 @@ int main(int argc, char *argv[]) {
     free (fdata_B);
 #endif
     CHECK_ERROR(close(fd_B) < 0);
+
+foutC.close();
 
     get_time (end);
     print_time("finalize", begin, end);
