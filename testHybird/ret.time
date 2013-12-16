@@ -1,0 +1,60 @@
+map avg user time: 0.000    (0.000, 0.000)
+map avg thread time: 0.001    (0.001, 0.001)
+reduce avg user time: 0.000    (0.000, 0.000)
+reduce avg thread time: 0.000    (0.000, 0.000)
+INFO:     chifilenames.hpp(find_shards:265): Detected number of shards: 1
+[0mINFO:     chifilenames.hpp(find_shards:266): To specify a different number of shards, use command-line parameter 'nshards'
+[0mINFO:     conversions.hpp(convert_if_notexists:758): Found preprocessed files for X.txt, num shards=1
+[0mINFO:     chifilenames.hpp(check_origfile_modification_earlier:454): The input graph modification date was newer than of the shards.
+[0mINFO:     chifilenames.hpp(check_origfile_modification_earlier:455): Going to delete old shards and recreate new ones. To disable 
+[0mINFO:     chifilenames.hpp(check_origfile_modification_earlier:456): functionality, specify --disable-modtime-check=1
+[0m[1;33mDEBUG:    chifilenames.hpp(delete_shards:288): Deleting files for X.txt shards=1
+[0m[1;33mDEBUG:    chifilenames.hpp(delete_shards:340): Deleting X.txt.edata_azv.0_1.adj exists: 1
+[0m[1;33mDEBUG:    chifilenames.hpp(delete_shards:349): Deleting X.txt.edata_azv.0_1.adjidx exists: 1
+[0mINFO:     conversions.hpp(convert_if_notexists:767): Did not find preprocessed shards for X.txt
+[0mINFO:     conversions.hpp(convert_if_notexists:768): (Edge-value size: 4)
+[0mINFO:     conversions.hpp(convert_if_notexists:769): Will try create them now...
+[0mINFO:     sharder.hpp(start_preprocessing:370): Starting preprocessing, shovel size: 17476266
+[0mINFO:     conversions.hpp(convert_edgelist:221): Reading in edge list format!
+[0mINFO:     sharder.hpp(flush:191): Sorting shovel: X.txt4.0.shovel, max:10
+[0mINFO:     sharder.hpp(flush:193): Sort done.X.txt4.0.shovel
+[0mINFO:     sharder.hpp(flush_shovel:401): Waiting shoveling threads...
+[0mINFO:     sharder.hpp(determine_number_of_shards:564): Determining number of shards automatically.
+[0mINFO:     sharder.hpp(determine_number_of_shards:567): Assuming available memory is 800 megabytes. 
+[0mINFO:     sharder.hpp(determine_number_of_shards:568):  (This can be defined with configuration parameter 'membudget_mb')
+[0mINFO:     sharder.hpp(determine_number_of_shards:573): Determining maximum shard size: 100 MB.
+[0mINFO:     sharder.hpp(determine_number_of_shards:586): Number of shards to be created: 1
+[0mINFO:     sharder.hpp(write_shards:967): Edges per shard: 10 nshards=1 total: 9
+[0mINFO:     sharder.hpp(write_shards:973): Buffer size in merge phase: 419430408
+[0mINFO:     sharder.hpp(finish_shard:625): Starting final processing for shard: 0
+[0m[1;33mDEBUG:    sharder.hpp(finish_shard:636): Shovel size:108 edges: 9
+[0m[1;33mDEBUG:    sharder.hpp(finish_shard:702): 0 / 9
+[0mINFO:     sharder.hpp(createnextshard:887): Remaining edges: 0 remaining shards:0 edges per shard=10
+[0mINFO:     sharder.hpp(createnextshard:890): Edges per shard: 10
+[0mINFO:     sharder.hpp(done:903): Created 1 shards, for 9 edgesSuccessfully finished sharding for X.txt
+[0mINFO:     conversions.hpp(convert:651): Created 1 shards.
+[0mINFO:     mm_sparse_graphchi.cpp(convertVector:38): Reading Y.txt
+[0m[1;33mDEBUG:    stripedio.hpp(stripedio:271): Start io-manager with 2 threads.
+[0mINFO:     graphchi_engine.hpp(graphchi_engine:154): Initializing graphchi_engine. This engine expects 4-byte edge data. 
+[0mINFO:     chifilenames.hpp(load_vertex_intervals:400): shard: 0 - 10
+[0mINFO:     graphchi_engine.hpp(run:737): GraphChi starting
+[0mINFO:     graphchi_engine.hpp(run:738): Licensed under the Apache License 2.0
+[0mINFO:     graphchi_engine.hpp(run:739): Copyright Aapo Kyrola et al., Carnegie Mellon University (2012)
+[0m[1;33mDEBUG:    slidingshard.hpp(sliding_shard:213): Total edge data size: 36, X.txt.edata..Z.e4B.0_1sizeof(ET): 4
+[0mINFO:     graphchi_engine.hpp(print_config:132): Engine configuration: 
+[0mINFO:     graphchi_engine.hpp(print_config:133):  exec_threads = 8
+[0mINFO:     graphchi_engine.hpp(print_config:134):  load_threads = 4
+[0mINFO:     graphchi_engine.hpp(print_config:135):  membudget_mb = 800
+[0mINFO:     graphchi_engine.hpp(print_config:136):  blocksize = 1048576
+[0mINFO:     graphchi_engine.hpp(print_config:137):  scheduler = 0
+[0mINFO:     graphchi_engine.hpp(run:773): Start iteration: 0
+[0mINFO:     graphchi_engine.hpp(run:852): 0.002892s: Starting: 0 -- 10
+[0mINFO:     graphchi_engine.hpp(run:865): Iteration 0/0, subinterval: 0 - 10
+[0m[1;33mDEBUG:    graphchi_engine.hpp(run:880): Allocation 11 vertices, sizeof:64 total:704
+[0m[1;33mDEBUG:    memoryshard.hpp(load_edata:327): Compressed/full size: 0.472222 number of blocks: 1
+[0mINFO:     graphchi_engine.hpp(run:889): Start updates
+[0mINFO:     graphchi_engine.hpp(exec_updates_inmemory_mode:470): In-memory mode: Iteration 0 starts. (0.055862 secs)
+[0mINFO:     graphchi_engine.hpp(run:899): Finished updates
+[0mINFO:     stripedio.hpp(~block_cache:170): Cache stats: hits=0 misses=1
+[0mINFO:     stripedio.hpp(~block_cache:171):  -- in total had 0 MB in cache.
+[0m
