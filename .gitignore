@@ -4,8 +4,9 @@ bin
 
 #data file
 x.*
-x.*
-
+y.*
+X.*
+Y.*
 # Compiled Object files
 *.slo
 *.lo
