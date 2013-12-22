@@ -3,8 +3,8 @@ backup
 bin
 
 #data file
-X.*
-Y.*
+x.*
+x.*
 
 # Compiled Object files
 *.slo
