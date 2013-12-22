@@ -1,0 +1,77 @@
+Start gm_sparse_phoenix
+Reading input : 0.000
+Writing Y : 0.000
+library init : 0.000
+map phase : 0.000
+reduce phase : 0.000
+merge phase : 0.000
+run time : 0.000
+Calculating : 0.001
+Writing X : 0.000
+Finish gm_sparse_phoenix
+Please enter value for command-line argument [filetype]
+  (Options are: edgelist, adjlist, binedgelist, metis)
+
+ === REPORT FOR sharder() ===
+[Timings]
+edata_flush:		0.000304 s
+execute_sharding:		0.110127 s
+finish_shard.sort:		4e-05 s
+preprocessing:		0.000209 s
+shard_final:		0.002885 s
+[Other]
+app:	sharder
+1 0 2
+1 2 2
+2 0 2
+2 2 2
+3 0 2
+3 2 2
+4 0 2
+4 2 2
+5 0 1
+5 1 1
+6 1 2
+6 1 2
+7 0 2
+7 2 2
+8 0 2
+8 2 2
+9 1 2
+9 1 2
+10 1 2
+10 1 2
+
+ === REPORT FOR matrix_multiply() ===
+[Numeric]
+cachesize_mb:		0
+compression:		1
+execthreads:		4
+loadthreads:		4
+membudget_mb:		800
+niothreads:		2
+niters:		1
+nshards:		1
+nvertices:		11
+scheduler:		0
+serialized-updates:		10
+stripesize:		1.07374e+09
+updates:		11
+work:		9
+[Timings]
+execute-updates:		0.001012 s
+iomgr_init:		0.00013 s
+memoryshard_create_edges:		0.000175 s
+preada_now:		0.000182s	 (count: 3, min: 7e-06s, max: 0.000159, avg: 6.06667e-05s)
+runtime:		0.057899 s
+stripedio_wait_for_reads:		0.054593 s
+stripedio_wait_for_writes:		4e-06s	 (count: 3, min: 1e-06s, max: 2e-06, avg: 1.33333e-06s)
+[Other]
+app:	matrix_multiply
+engine:	default
+file:	X.txt
+
+POS: 7
+Dependency Degree: 0.7
+
+此程序的运行时间为: 0.038

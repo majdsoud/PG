@@ -6,18 +6,21 @@
 #include <time.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include "basic.cpp"
 using namespace std;
 
-char * fnamein;
+char * fname;
 int num_row;
+int num_col;
 int num_att;
 int num_num;
-int num_col;
+int num_y;
 vector<int> attribute;
+vector<string> ylable;
 double shold_dist = 0.15;
 double square_shold = shold_dist * shold_dist;
-ofstream foutx("X.txt");
-ofstream fouty("Y.txt");
+ofstream foutx("x.txt");
+ofstream fouty("y.txt");
 
 struct stringMeta{
 	vector<string> vtstr;
@@ -29,35 +32,37 @@ struct stringMeta{
 void parse_command_line(int argc, char **argv){
     int c;
     extern char *optarg;
-    while ((c = getopt(argc, argv, "f:r:a:n:c:e:")) != EOF) {
-        switch (c) {
+    while((c = getopt(argc, argv, "f:r:c:a:n:y:e:")) != EOF){
+        switch(c){
 			case 'f':
-                fnamein = optarg;
+                fname = optarg;
 			break;
             case 'r':
                 num_row = atoi(optarg);
 			break;
+            case 'c':
+                num_col = atoi(optarg);
+            break;
             case 'a':
                 num_att = atoi(optarg);
-                break;
-            case 'n':
+            break;
+			case 'n':
                 num_num = atoi(optarg);
-                break;
-			case 'c':
-                num_col = atoi(optarg);
-                break;
+            break;
+            case 'y':
+                num_y = atoi(optarg);
+            break;
 			case 'e':{
  				char *ch = optarg;
 		   		int len = strlen(optarg);
 				int i = 0;
 				int start;
 				int flag = 0;
-				while(i < len){	
-					if(i < len && flag == 1){
-						++i;	
-					}
+				while(i < len){
+					if(i < len && flag == 1)
+						++i;
 					flag = 1;
-					start = i;			
+					start = i;
 					while(i < len && *(ch+i) != ':') 
 						++i;
 					*(ch+i) = 0;
@@ -66,65 +71,64 @@ void parse_command_line(int argc, char **argv){
 				}
             }break;
 			case '?':
-                printf("argv error~~\n");
-                exit(1);
+			cout<<"Usage: -f <input file> -r <row number> -c <col number> -a <attribute number> -n <num number> -y <y number> -e <eg col, 0 means not need, 1 means att,2 means num>"<<endl;
+            exit(1);
         }
     }
 }
 
+void parse_y_line(){
+    string line;
+    ifstream fyl("../data/names");
+    while(getline(fyl, line)){
+        ylable.push_back(line);
+    }
+}
 
 int main(int argc, char *argv[]){
-    clock_t start,finish;
-    double totaltime;
-    start = clock();
+    StartTimerAll();
+    cout << "================== start  gm_sparse_graphchi ==================" << endl;
+    double tall;
     parse_command_line(argc,argv);
-    ifstream fin(fnamein);
- 
-	int t = 0;
+    parse_y_line();
+    ifstream fin(fname);
+
 	int i,j,k;
-	string str;
+	string line;
 	string tmp;
-	int Y[num_row];
+	int* Y = new int[num_row];
 	int rownum = 0;
 	stringMeta* strMeta = new stringMeta[num_row];
-
-	while(getline(fin, str) && rownum < num_row){
-		stringstream word(str);
+ 
+	while(getline(fin, line) && rownum < num_row){
+	    stringstream word(line);
 		vector<string> vstr;
-		j = 0;
-		for(i = 0; i < num_att; i++){
+		double* vdou = new double[num_num];
+		for(i = 0, j = 0; i < num_col; i++){
 		    word >> tmp;
-		    if(i == attribute[j]){
+			if(attribute[i] == 1){
 				vstr.push_back(tmp);
-				j++;
+			}
+			if(attribute[i] == 2){
+				vdou[j++] = atof(tmp.c_str());
 			}
 		}
-		double* vdou = new double[num_num];
-		for(i = 0; i < num_num; i++){
-			word >> tmp;
-			vdou[i] = atof(tmp.c_str());
-		}
-		strMeta[rownum] = stringMeta(vstr,vdou);
 
+		strMeta[rownum] = stringMeta(vstr,vdou);
 		word >> tmp;
-		if(tmp == "yes")
-			Y[rownum]=1;
-		else
-			Y[rownum]=0;
-		
+		for(i = 0; i < num_y; i++){
+		    if(ylable[i] == tmp){
+		        Y[rownum]= i;
+		        break;
+		    }
+		}
 		rownum++;
 	}	
-    printf("Finish reading\n");
 
-	fouty << "2\t" << num_row <<endl;
-	fouty << "yes\tno" << endl; 
-	for(i = 0; i < num_row; i++){
-		if(Y[i])
-			fouty << "1\t0\n";
-		else
-			fouty << "0\t1\n";
-	}
-    printf("Finish writing Y\n");
+    fouty<<num_y<<"\n";
+	fouty<<num_row<<"\n";
+	for(i=0;i<num_row;i++)
+        fouty<<Y[i]<<"\n";
 
 	string tmp1;
 	string tmp2;
@@ -139,7 +143,7 @@ int main(int argc, char *argv[]){
 		for(j = 0; j < num_row; j++){
 			if(i != j){
 				int isequal = 1;
-				for(k = 0; k < num_col; k++){
+				for(k = 0; k < num_att; k++){
 					if(strMeta[i].vtstr[k] != strMeta[j].vtstr[k]){
 						isequal = 0;
 						break;
@@ -172,22 +176,19 @@ int main(int argc, char *argv[]){
 		foutx << tmp2 <<endl;
 	}
 
-    printf("Finish writing X");
-
 	for(i = 0; i < num_row; i++){
-		vector<string> vTemp; 
+		vector<string> vTemp;
 		vTemp.swap(strMeta[i].vtstr);
 		delete[] strMeta[i].vtdou;
 	}
 	delete[] strMeta;
-
+    delete[] Y;
     fin.close();
     foutx.close();
     fouty.close();
 
-    finish = clock();
-    totaltime = (double)(finish - start) / CLOCKS_PER_SEC;
-    printf("\n此程序的运行时间为: %.3lfs\n", totaltime);
-
+	tall = GetTimerAll();
+	cout << "total time: " << tall << endl;
+	cout << "================== finish gm_sparse_graphchi ==================" << endl;
     return 0;
 }

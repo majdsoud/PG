@@ -15,4 +15,3 @@ INCLUDE_GC=$(GC_HOME)/example_apps #gc: GraphChi
 include $(PX_HOME)/Defines.mk
 
 LIBS += -L$(PX_HOME)/$(LIB_DIR) -l$(PHOENIX)
-

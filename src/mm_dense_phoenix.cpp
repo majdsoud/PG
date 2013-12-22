@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <iostream>
 #include <fstream>
-#define TIMING
+#include "basic.cpp"
 #include "map_reduce.h"
 using namespace std;
 
@@ -39,17 +39,18 @@ public:
         
         double* output = data.output + data.row_num*data.colmun_len;
         int num = 0;
-        for(int i = 0; i < data.matrix_len ; i++) {
+        for(int i = 0; i < data.matrix_len; i++) {
             if (a_ptr[i] == 1)  num++;
-            for(int j=0;j<data.colmun_len ; j++) {
+            for(int j = 0;j < data.colmun_len; j++) {
                 output[j] += a_ptr[i] * b_ptr[j];
             }
             b_ptr += data.colmun_len;
         }
-        for(int j=0;j<data.colmun_len ; j++) {
+        for(int j = 0;j < data.colmun_len ; j++) {
             output[j] /= num;
         }
     }
+     
 
     int split(mm_data_t& out){
         if (row >= matrix_size){
@@ -59,7 +60,7 @@ public:
         out.matrix_A = matrix_A;
         out.matrix_B = matrix_B;
         out.matrix_len = matrix_size;
-	out.colmun_len = column_size;
+	    out.colmun_len = column_size;
         out.output = output;
         out.rows = 1;
         out.row_num = row++;
@@ -69,16 +70,15 @@ public:
 };
 
 int main(int argc, char *argv[]) {
-    printf("Start mm_dense_phoenix\n");
+    StartTimerAll();
+    cout << "================== start  mm_dense_phoenix ==================" << endl;
+    double tall;
     int i,j;
     int fd_A, fd_B, file_size1,file_size2;
     int * fdata_A, *fdata_B;
     int matrix_len, matrix_collen, row_block_len;
     struct stat finfo_A, finfo_B;
     char *fname_A, *fname_B;
-    struct timespec begin, end;
-
-    get_time (begin);
     
     srand( (unsigned)time( NULL ) );
     fname_A = argv[1];
@@ -142,58 +142,30 @@ int main(int argc, char *argv[]) {
 
     printf("MatrixMult: Calling MapReduce Scheduler Matrix Multiplication\n");
 
-    get_time (end);
-    print_time("initialize", begin, end);
-
-    get_time (begin);
     vector<MatrixMulMR::keyval> result;
     MatrixMulMR mapReduce(fdata_A, fdata_B, matrix_len,matrix_collen, output);
     mapReduce.run(result);
-    get_time (end);
-    print_time("library", begin, end);
 
-    get_time (begin);
-    ofstream foutC("output");
-    
     double Lower = 0;
     for(i=0;i<matrix_len;i++){
         for(j=0;j<matrix_collen;j++){
-            if (output[i*matrix_collen+j] == 1) Lower++;
-            if(j==0)
-                foutC<<output[i*matrix_collen+j];
-	        else 
-	            foutC<< "\t"<<output[i*matrix_collen+j];     
+            if (output[i*matrix_collen+j] == 1) Lower++;   
         }
-        foutC<<endl;
     }
 
-
-    printf("MatrixMult: MapReduce Completed\n");
-std::cout << std::endl;
-std::cout << "POS: " << Lower << std::endl;
-std::cout << "Dependency Degree: " << Lower/matrix_len << std::endl;
-std::cout << std::endl;
-
+    std::cout << "POS: " << Lower << std::endl;
+    std::cout << "Dependency Degree: " << Lower << "/" << matrix_len << "= " <<Lower/matrix_len << std::endl;
+    
     delete[] output;
 
-#ifndef NO_MMAP
     CHECK_ERROR(munmap(fdata_A, file_size1 + 1) < 0);
-#else
-    free (fdata_A);
-#endif
-    CHECK_ERROR(close(fd_A) < 0);
+    close(fd_A);
 
-#ifndef NO_MMAP
     CHECK_ERROR(munmap(fdata_B, file_size2 + 1) < 0);
-#else
-    free (fdata_B);
-#endif
-    CHECK_ERROR(close(fd_B) < 0);
+    close(fd_B);
 
-foutC.close();
-
-    get_time (end);
-    print_time("finalize", begin, end);
-    printf("Finish mm_dense_phoenix\n");
+	tall = GetTimerAll();
+	cout << "total time: " << tall << endl;
+	cout << "================== finish mm_dense_phoenix ==================" << endl;
     return 0;
 }

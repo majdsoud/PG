@@ -1,0 +1,28 @@
+Start gm_dense_phoenix
+Reading: : 0.000
+library init : 0.000
+map phase : 0.000
+reduce phase : 0.000
+merge phase : 0.000
+run time : 0.000
+Calculating : 0.000
+Writing Y: : 0.003
+Writing X: : 0.002
+Finish gm_dense_phoenix
+Start mm_dense_phoenix
+MatrixMult: Calling MapReduce Scheduler Matrix Multiplication
+initialize : 0.000
+split phase : 0.000
+library init : 0.000
+map phase : 0.000
+reduce phase : 0.000
+merge phase : 0.000
+run time : 0.000
+library : 0.000
+MatrixMult: MapReduce Completed
+
+POS: 4
+Dependency Degree: 0.4
+
+finalize : 0.001
+Finish mm_dense_phoenix

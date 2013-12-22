@@ -53,7 +53,7 @@ endif
 ifeq ($(OSTYPE),Darwin)
 OS = -D_DARWIN_
 DEBUG = -g
-CFLAGS = $(DEBUG) -Wall -O3 $(OS)
+CFLAGS = $(DEBUG) -fpermissive -Wall -O3 $(OS)
 LIBS = -lpthread
 endif
 

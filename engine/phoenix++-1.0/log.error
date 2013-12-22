@@ -1,0 +1,130 @@
+histogram.cpp: In function 'int main(int, char**)':
+histogram.cpp:188:11: warning: variable 'prev' set but not used [-Wunused-but-set-variable]
+     short prev = 0;
+           ^
+In file included from histogram.cpp:31:0:
+../../include/map_reduce.h: In instantiation of 'void MapReduce<Impl, D, K, V, Container>::run_map(MapReduce<Impl, D, K, V, Container>::data_type*, uint64_t) [with Impl = HistogramMR; D = pixel; K = long int; V = long long unsigned int; Container = array_container<long int, long long unsigned int, sum_combiner, 768>; MapReduce<Impl, D, K, V, Container>::data_type = pixel; uint64_t = long long unsigned int]':
+../../include/map_reduce.h:238:28:   required from 'int MapReduce<Impl, D, K, V, Container>::run(D*, uint64_t, std::vector<MapReduce<Impl, D, K, V, Container>::keyval>&) [with Impl = HistogramMR; D = pixel; K = long int; V = long long unsigned int; Container = array_container<long int, long long unsigned int, sum_combiner, 768>; uint64_t = long long unsigned int]'
+histogram.cpp:176:2:   required from here
+../../include/map_reduce.h:287:63: warning: narrowing conversion of 'lgrp' from 'int' to 'uint64_t {aka long long unsigned int}' inside { } is ill-formed in C++11 [-Wnarrowing]
+                     {    i, len, (uint64_t)(data+start), lgrp };    
+                                                               ^
+In file included from histogram.cpp:31:0:
+../../include/map_reduce.h: In instantiation of 'void MapReduceSort<Impl, D, K, V, Container>::run_merge() [with Impl = HistogramMR; D = pixel; K = long int; V = long long unsigned int; Container = array_container<long int, long long unsigned int, sum_combiner, 768>]':
+histogram.cpp:227:1:   required from here
+../../include/map_reduce.h:475:59: warning: narrowing conversion of 'i' from 'int' to 'uint64_t {aka long long unsigned int}' inside { } is ill-formed in C++11 [-Wnarrowing]
+                 { i, 0, (uint64_t)&this->final_vals[i], 0 };
+                                                           ^
+../../include/map_reduce.h:478:72: error: 'start_workers' was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]
+         start_workers(&this->merge_callback, this->num_threads, "merge");
+                                                                        ^
+../../include/map_reduce.h:478:72: note: declarations in dependent base 'MapReduce<HistogramMR, pixel, long int, long long unsigned int, array_container<long int, long long unsigned int, sum_combiner, 768> >' are not found by unqualified lookup
+../../include/map_reduce.h:478:72: note: use 'this->start_workers' instead
+../../include/map_reduce.h:510:71: error: 'start_workers' was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]
+                 std::min(resulting_queues, this->num_threads), "merge");
+                                                                       ^
+../../include/map_reduce.h:510:71: note: declarations in dependent base 'MapReduce<HistogramMR, pixel, long int, long long unsigned int, array_container<long int, long long unsigned int, sum_combiner, 768> >' are not found by unqualified lookup
+../../include/map_reduce.h:510:71: note: use 'this->start_workers' instead
+make[2]: *** [histogram.o] Error 1
+make[2]: *** No rule to make target `../../lib/libphoenix.a', needed by `linear_regression'.  Stop.
+make[2]: *** No rule to make target `../../lib/libphoenix.a', needed by `kmeans'.  Stop.
+In file included from matrix_multiply.cpp:32:0:
+../../include/map_reduce.h: In instantiation of 'int MapReduce<Impl, D, K, V, Container>::run(std::vector<MapReduce<Impl, D, K, V, Container>::keyval>&) [with Impl = MatrixMulMR; D = mm_data_t; K = int; V = int; Container = hash_container<int, int, buffer_combiner, std::tr1::hash<int>, std::allocator>]':
+matrix_multiply.cpp:255:25:   required from here
+../../include/map_reduce.h:202:5: error: passing 'const MatrixMulMR' as 'this' argument of 'int MatrixMulMR::split(mm_data_t&)' discards qualifiers [-fpermissive]
+     while (static_cast<Impl const*>(this)->split(chunk))
+     ^
+../../include/map_reduce.h: In instantiation of 'void MapReduce<Impl, D, K, V, Container>::run_map(MapReduce<Impl, D, K, V, Container>::data_type*, uint64_t) [with Impl = MatrixMulMR; D = mm_data_t; K = int; V = int; Container = hash_container<int, int, buffer_combiner, std::tr1::hash<int>, std::allocator>; MapReduce<Impl, D, K, V, Container>::data_type = mm_data_t; uint64_t = long long unsigned int]':
+matrix_multiply.cpp:289:1:   required from here
+../../include/map_reduce.h:287:63: warning: narrowing conversion of 'lgrp' from 'int' to 'uint64_t {aka long long unsigned int}' inside { } is ill-formed in C++11 [-Wnarrowing]
+                     {    i, len, (uint64_t)(data+start), lgrp };    
+                                                               ^
+make[2]: *** [matrix_multiply.o] Error 1
+In file included from pca.cpp:35:0:
+../../include/map_reduce.h: In instantiation of 'int MapReduce<Impl, D, K, V, Container>::run(std::vector<MapReduce<Impl, D, K, V, Container>::keyval>&) [with Impl = MeanMR; D = pca_map_data_t; K = int; V = long long int; Container = common_array_container<int, long long int, one_combiner, 1000>]':
+pca.cpp:288:22:   required from here
+../../include/map_reduce.h:202:5: error: passing 'const MeanMR' as 'this' argument of 'int MeanMR::split(pca_map_data_t&)' discards qualifiers [-fpermissive]
+     while (static_cast<Impl const*>(this)->split(chunk))
+     ^
+../../include/map_reduce.h: In instantiation of 'int MapReduce<Impl, D, K, V, Container>::run(std::vector<MapReduce<Impl, D, K, V, Container>::keyval>&) [with Impl = CovMR; D = pca_cov_data_t; K = long int; V = long long int; Container = common_array_container<long int, long long int, one_combiner, 1000000>]':
+pca.cpp:311:22:   required from here
+../../include/map_reduce.h:202:5: error: passing 'const CovMR' as 'this' argument of 'int CovMR::split(pca_cov_data_t&)' discards qualifiers [-fpermissive]
+../../include/map_reduce.h: In instantiation of 'void MapReduce<Impl, D, K, V, Container>::run_map(MapReduce<Impl, D, K, V, Container>::data_type*, uint64_t) [with Impl = CovMR; D = pca_cov_data_t; K = long int; V = long long int; Container = common_array_container<long int, long long int, one_combiner, 1000000>; MapReduce<Impl, D, K, V, Container>::data_type = pca_cov_data_t; uint64_t = long long unsigned int]':
+pca.cpp:348:1:   required from here
+../../include/map_reduce.h:287:63: warning: narrowing conversion of 'lgrp' from 'int' to 'uint64_t {aka long long unsigned int}' inside { } is ill-formed in C++11 [-Wnarrowing]
+                     {    i, len, (uint64_t)(data+start), lgrp };    
+                                                               ^
+In file included from pca.cpp:35:0:
+../../include/map_reduce.h: In instantiation of 'void MapReduceSort<Impl, D, K, V, Container>::run_merge() [with Impl = CovMR; D = pca_cov_data_t; K = long int; V = long long int; Container = common_array_container<long int, long long int, one_combiner, 1000000>]':
+pca.cpp:348:1:   required from here
+../../include/map_reduce.h:475:59: warning: narrowing conversion of 'i' from 'int' to 'uint64_t {aka long long unsigned int}' inside { } is ill-formed in C++11 [-Wnarrowing]
+                 { i, 0, (uint64_t)&this->final_vals[i], 0 };
+                                                           ^
+../../include/map_reduce.h:478:72: error: 'start_workers' was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]
+         start_workers(&this->merge_callback, this->num_threads, "merge");
+                                                                        ^
+../../include/map_reduce.h:478:72: note: declarations in dependent base 'MapReduce<CovMR, pca_cov_data_t, long int, long long int, common_array_container<long int, long long int, one_combiner, 1000000> >' are not found by unqualified lookup
+../../include/map_reduce.h:478:72: note: use 'this->start_workers' instead
+../../include/map_reduce.h:510:71: error: 'start_workers' was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]
+                 std::min(resulting_queues, this->num_threads), "merge");
+                                                                       ^
+../../include/map_reduce.h:510:71: note: declarations in dependent base 'MapReduce<CovMR, pca_cov_data_t, long int, long long int, common_array_container<long int, long long int, one_combiner, 1000000> >' are not found by unqualified lookup
+../../include/map_reduce.h:510:71: note: use 'this->start_workers' instead
+In file included from pca.cpp:35:0:
+../../include/map_reduce.h: In instantiation of 'void MapReduce<Impl, D, K, V, Container>::run_map(MapReduce<Impl, D, K, V, Container>::data_type*, uint64_t) [with Impl = MeanMR; D = pca_map_data_t; K = int; V = long long int; Container = common_array_container<int, long long int, one_combiner, 1000>; MapReduce<Impl, D, K, V, Container>::data_type = pca_map_data_t; uint64_t = long long unsigned int]':
+pca.cpp:348:1:   required from here
+../../include/map_reduce.h:287:63: warning: narrowing conversion of 'lgrp' from 'int' to 'uint64_t {aka long long unsigned int}' inside { } is ill-formed in C++11 [-Wnarrowing]
+                     {    i, len, (uint64_t)(data+start), lgrp };    
+                                                               ^
+make[2]: *** [pca.o] Error 1
+In file included from string_match.cpp:32:0:
+../../include/map_reduce.h: In instantiation of 'int MapReduce<Impl, D, K, V, Container>::run(std::vector<MapReduce<Impl, D, K, V, Container>::keyval>&) [with Impl = MatchMR; D = str_map_data_t; K = int; V = int; Container = hash_container<int, int, buffer_combiner, std::tr1::hash<int>, std::allocator>]':
+string_match.cpp:207:5:   required from here
+../../include/map_reduce.h:202:5: error: passing 'const MatchMR' as 'this' argument of 'int MatchMR::split(str_map_data_t&)' discards qualifiers [-fpermissive]
+     while (static_cast<Impl const*>(this)->split(chunk))
+     ^
+../../include/map_reduce.h: In instantiation of 'void MapReduce<Impl, D, K, V, Container>::run_map(MapReduce<Impl, D, K, V, Container>::data_type*, uint64_t) [with Impl = MatchMR; D = str_map_data_t; K = int; V = int; Container = hash_container<int, int, buffer_combiner, std::tr1::hash<int>, std::allocator>; MapReduce<Impl, D, K, V, Container>::data_type = str_map_data_t; uint64_t = long long unsigned int]':
+string_match.cpp:231:1:   required from here
+../../include/map_reduce.h:287:63: warning: narrowing conversion of 'lgrp' from 'int' to 'uint64_t {aka long long unsigned int}' inside { } is ill-formed in C++11 [-Wnarrowing]
+                     {    i, len, (uint64_t)(data+start), lgrp };    
+                                                               ^
+make[2]: *** [string_match.o] Error 1
+word_count.cpp: In function 'int main(int, char**)':
+word_count.cpp:236:97: warning: format '%lu' expects argument of type 'long unsigned int', but argument 3 has type 'MapReduce<WordsMR, wc_string, wc_word, long long unsigned int, hash_container<wc_word, long long unsigned int, sum_combiner, wc_word_hash> >::value_type {aka long long unsigned int}' [-Wformat=]
+         printf("%15s - %lu\n", result[result.size()-1-i].key.data, result[result.size()-1-i].val);
+                                                                                                 ^
+word_count.cpp:236:97: warning: format '%lu' expects argument of type 'long unsigned int', but argument 3 has type 'MapReduce<WordsMR, wc_string, wc_word, long long unsigned int, hash_container<wc_word, long long unsigned int, sum_combiner, wc_word_hash> >::value_type {aka long long unsigned int}' [-Wformat=]
+word_count.cpp:244:33: warning: format '%lu' expects argument of type 'long unsigned int', but argument 2 has type 'uint64_t {aka long long unsigned int}' [-Wformat=]
+     printf("Total: %lu\n", total);
+                                 ^
+word_count.cpp:244:33: warning: format '%lu' expects argument of type 'long unsigned int', but argument 2 has type 'uint64_t {aka long long unsigned int}' [-Wformat=]
+In file included from word_count.cpp:37:0:
+../../include/map_reduce.h: In instantiation of 'int MapReduce<Impl, D, K, V, Container>::run(std::vector<MapReduce<Impl, D, K, V, Container>::keyval>&) [with Impl = WordsMR; D = wc_string; K = wc_word; V = long long unsigned int; Container = hash_container<wc_word, long long unsigned int, sum_combiner, wc_word_hash>]':
+word_count.cpp:221:5:   required from here
+../../include/map_reduce.h:202:5: error: passing 'const WordsMR' as 'this' argument of 'int WordsMR::split(wc_string&)' discards qualifiers [-fpermissive]
+     while (static_cast<Impl const*>(this)->split(chunk))
+     ^
+../../include/map_reduce.h: In instantiation of 'void MapReduce<Impl, D, K, V, Container>::run_map(MapReduce<Impl, D, K, V, Container>::data_type*, uint64_t) [with Impl = WordsMR; D = wc_string; K = wc_word; V = long long unsigned int; Container = hash_container<wc_word, long long unsigned int, sum_combiner, wc_word_hash>; MapReduce<Impl, D, K, V, Container>::data_type = wc_string; uint64_t = long long unsigned int]':
+word_count.cpp:260:1:   required from here
+../../include/map_reduce.h:287:63: warning: narrowing conversion of 'lgrp' from 'int' to 'uint64_t {aka long long unsigned int}' inside { } is ill-formed in C++11 [-Wnarrowing]
+                     {    i, len, (uint64_t)(data+start), lgrp };    
+                                                               ^
+In file included from word_count.cpp:37:0:
+../../include/map_reduce.h: In instantiation of 'void MapReduceSort<Impl, D, K, V, Container>::run_merge() [with Impl = WordsMR; D = wc_string; K = wc_word; V = long long unsigned int; Container = hash_container<wc_word, long long unsigned int, sum_combiner, wc_word_hash>]':
+word_count.cpp:260:1:   required from here
+../../include/map_reduce.h:475:59: warning: narrowing conversion of 'i' from 'int' to 'uint64_t {aka long long unsigned int}' inside { } is ill-formed in C++11 [-Wnarrowing]
+                 { i, 0, (uint64_t)&this->final_vals[i], 0 };
+                                                           ^
+../../include/map_reduce.h:478:72: error: 'start_workers' was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]
+         start_workers(&this->merge_callback, this->num_threads, "merge");
+                                                                        ^
+../../include/map_reduce.h:478:72: note: declarations in dependent base 'MapReduce<WordsMR, wc_string, wc_word, long long unsigned int, hash_container<wc_word, long long unsigned int, sum_combiner, wc_word_hash> >' are not found by unqualified lookup
+../../include/map_reduce.h:478:72: note: use 'this->start_workers' instead
+../../include/map_reduce.h:510:71: error: 'start_workers' was not declared in this scope, and no declarations were found by argument-dependent lookup at the point of instantiation [-fpermissive]
+                 std::min(resulting_queues, this->num_threads), "merge");
+                                                                       ^
+../../include/map_reduce.h:510:71: note: declarations in dependent base 'MapReduce<WordsMR, wc_string, wc_word, long long unsigned int, hash_container<wc_word, long long unsigned int, sum_combiner, wc_word_hash> >' are not found by unqualified lookup
+../../include/map_reduce.h:510:71: note: use 'this->start_workers' instead
+make[2]: *** [word_count.o] Error 1
+make[1]: *** [all] Error 2
+make: *** [tests] Error 2

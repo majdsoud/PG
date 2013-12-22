@@ -1,0 +1,70 @@
+Finish reading
+Finish writing Y
+Finish writing X
+此程序的运行时间为: 0.000s
+Please enter value for command-line argument [filetype]
+  (Options are: edgelist, adjlist, binedgelist, metis)
+
+ === REPORT FOR sharder() ===
+[Timings]
+edata_flush:		0.000203 s
+execute_sharding:		0.100767 s
+finish_shard.sort:		1.5e-05 s
+preprocessing:		0.000287 s
+shard_final:		0.002129 s
+[Other]
+app:	sharder
+1 0 2
+1 2 2
+2 0 2
+2 2 2
+3 0 2
+3 2 2
+4 0 2
+4 2 2
+5 0 1
+5 1 1
+6 1 2
+6 1 2
+7 0 2
+7 2 2
+8 0 2
+8 2 2
+9 1 2
+9 1 2
+10 1 2
+10 1 2
+
+ === REPORT FOR matrix_multiply() ===
+[Numeric]
+cachesize_mb:		0
+compression:		1
+execthreads:		4
+loadthreads:		4
+membudget_mb:		800
+niothreads:		2
+niters:		1
+nshards:		1
+nvertices:		11
+scheduler:		0
+serialized-updates:		10
+stripesize:		1.07374e+09
+updates:		11
+work:		9
+[Timings]
+execute-updates:		0.000314 s
+iomgr_init:		9.5e-05 s
+memoryshard_create_edges:		0.000175 s
+preada_now:		0.000109s	 (count: 3, min: 6e-06s, max: 8.9e-05, avg: 3.63333e-05s)
+runtime:		0.056617 s
+stripedio_wait_for_reads:		0.05448 s
+stripedio_wait_for_writes:		2e-06s	 (count: 3, min: 0s, max: 1e-06, avg: 6.66667e-07s)
+[Other]
+app:	matrix_multiply
+engine:	default
+file:	X.txt
+
+POS: 7
+Dependency Degree: 0.7
+
+此程序的运行时间为: 0.023
