@@ -1,114 +1,39 @@
-Start gm_sparse_phoenix
-<<<<<<< HEAD
-Reading input : 0.000
-Writing Y : 0.000
-library init : 0.000
-map phase : 0.000
-reduce phase : 0.000
-merge phase : 0.000
-run time : 0.000
-Calculating : 0.001
-=======
-Reading input : 0.001
-Writing Y : 0.000
-library init : 0.000
-map phase : 0.001
-reduce phase : 0.000
-merge phase : 0.000
-run time : 0.001
-Calculating : 0.002
->>>>>>> a2859efc44ed72e9c5c309fc956aa6a837bf695e
-Writing X : 0.000
-Finish gm_sparse_phoenix
-Please enter value for command-line argument [filetype]
-  (Options are: edgelist, adjlist, binedgelist, metis)
 
  === REPORT FOR sharder() ===
 [Timings]
-<<<<<<< HEAD
-edata_flush:		0.000304 s
-execute_sharding:		0.110127 s
-finish_shard.sort:		4e-05 s
-preprocessing:		0.000209 s
-shard_final:		0.002885 s
-=======
-edata_flush:		0.001183 s
-execute_sharding:		0.005457 s
-finish_shard.sort:		1.3e-05 s
-preprocessing:		0.000655 s
-shard_final:		0.002997 s
->>>>>>> a2859efc44ed72e9c5c309fc956aa6a837bf695e
+edata_flush:		0.15795s	 (count: 47, min: 0.002658s, max: 0.005235, avg: 0.00336064s)
+execute_sharding:		1.56825 s
+finish_shard.sort:		0.263725 s
+preprocessing:		1.1895 s
+shard_final:		0.783143 s
 [Other]
 app:	sharder
-1 0 2
-1 2 2
-2 0 2
-2 2 2
-3 0 2
-3 2 2
-4 0 2
-4 2 2
-5 0 1
-5 1 1
-6 1 2
-6 1 2
-7 0 2
-7 2 2
-8 0 2
-8 2 2
-9 1 2
-9 1 2
-10 1 2
-10 1 2
 
  === REPORT FOR matrix_multiply() ===
 [Numeric]
 cachesize_mb:		0
 compression:		1
-<<<<<<< HEAD
 execthreads:		4
-=======
-execthreads:		8
->>>>>>> a2859efc44ed72e9c5c309fc956aa6a837bf695e
 loadthreads:		4
 membudget_mb:		800
 niothreads:		2
 niters:		1
 nshards:		1
-nvertices:		11
+nvertices:		10001
 scheduler:		0
-serialized-updates:		10
+serialized-updates:		10001
 stripesize:		1.07374e+09
-updates:		11
-work:		9
+updates:		10001
+work:		1.22995e+07
 [Timings]
-<<<<<<< HEAD
-execute-updates:		0.001012 s
-iomgr_init:		0.00013 s
-memoryshard_create_edges:		0.000175 s
-preada_now:		0.000182s	 (count: 3, min: 7e-06s, max: 0.000159, avg: 6.06667e-05s)
-runtime:		0.057899 s
-stripedio_wait_for_reads:		0.054593 s
-stripedio_wait_for_writes:		4e-06s	 (count: 3, min: 1e-06s, max: 2e-06, avg: 1.33333e-06s)
-=======
-execute-updates:		0.000569 s
-iomgr_init:		0.000195 s
-memoryshard_create_edges:		0.000111 s
-preada_now:		2.8e-05s	 (count: 3, min: 6e-06s, max: 1.6e-05, avg: 9.33333e-06s)
-runtime:		0.056928 s
-stripedio_wait_for_reads:		0.050436 s
-stripedio_wait_for_writes:		3e-06s	 (count: 3, min: 1e-06s, max: 1e-06, avg: 1e-06s)
->>>>>>> a2859efc44ed72e9c5c309fc956aa6a837bf695e
+execute-updates:		0.556632 s
+iomgr_init:		0.000654 s
+memoryshard_create_edges:		0.388561 s
+preada_now:		0.068108s	 (count: 5, min: 1.7e-05s, max: 0.022954, avg: 0.0136216s)
+runtime:		0.996278 s
+stripedio_wait_for_reads:		2e-06 s
+stripedio_wait_for_writes:		1e-05s	 (count: 3, min: 2e-06s, max: 5e-06, avg: 3.33333e-06s)
 [Other]
 app:	matrix_multiply
 engine:	default
-file:	X.txt
-
-POS: 7
-Dependency Degree: 0.7
-
-<<<<<<< HEAD
-此程序的运行时间为: 0.038
-=======
-此程序的运行时间为: 0.150
->>>>>>> a2859efc44ed72e9c5c309fc956aa6a837bf695e
+file:	x.txt

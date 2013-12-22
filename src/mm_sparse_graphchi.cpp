@@ -85,7 +85,7 @@ struct MatrixMultiplyProgram: public GraphChiProgram<VertexDataType, EdgeDataTyp
 
 int main(int argc, const char ** argv) {
     StartTimerAll();
-    std::cout << "================== Start  gm_sparse_grapphchi ==================" << std::endl;
+    std::cerr << "================== Start  mm_sparse_grapphchi ==================" << std::endl;
     double tall,tio,tmm;
     graphchi_init(argc, argv);
     metrics m("matrix_multiply");
@@ -124,18 +124,18 @@ int main(int argc, const char ** argv) {
     
     metrics_report(m);
     
-    std::cout << "POS: " << Lower << std::endl;
-    std::cout << "Dependency Degree: " << Lower << "/" << rowNum << "= " <<Lower/rowNum << std::endl;
+    std::cerr << "POS: " << Lower << std::endl;
+    std::cerr << "Dependency Degree: " << Lower << "/" << rowNum << "= " <<Lower/rowNum << std::endl;
 
     delete[] adjlistData;
     delete[] outputData;
     
     tall = GetTimerAll();
-	std::cout << "io time: " << tio << std::endl;
-	std::cout << "mm time: " << tmm << std::endl;
-	std::cout << "other time: " << tall - tio - tmm << std::endl;
-	std::cout << "total time: " << tall << std::endl;
-	std::cout << "================== Finish gm_sparse_grapphchi ==================" << std::endl;
+	std::cerr << "io time: " << tio << std::endl;
+	std::cerr << "mm time: " << tmm << std::endl;
+	std::cerr << "other time: " << tall - tio - tmm << std::endl;
+	std::cerr << "total time: " << tall << std::endl;
+	std::cerr << "================== Finish mm_sparse_grapphchi ==================" << std::endl;
     
     return 0;
 }

@@ -9,6 +9,12 @@
 #include "basic.cpp"
 using namespace std;
 
+#if defined (_DARWIN_)
+// OSX doesn't support assigning threads to processors :(
+#include <unistd.h>
+#include <sched.h>
+#endif
+
 char * fname;
 int num_row;
 int num_col;

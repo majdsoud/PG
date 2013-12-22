@@ -76,7 +76,7 @@ void parse_command_line(int argc, char **argv){
 				}
             }break;
 			case '?':
-			cout<<"Usage: -f <input file> -r <row number> -c <col number> -a <attribute number> -n <num number> -y <y number> -e <eg col, 0 means not need, 1 means att,2 means num>"<<endl;
+			cerr<<"Usage: -f <input file> -r <row number> -c <col number> -a <attribute number> -n <num number> -y <y number> -e <eg col, 0 means not need, 1 means att,2 means num>"<<endl;
             exit(1);
         }
     }
@@ -143,7 +143,7 @@ public:
 
 int main(int argc, char *argv[]){
     StartTimerAll();
-    cout << "================== start  gm_sparse_phoenix ==================" << endl;
+    cerr << "================== start  gm_sparse_phoenix ==================" << endl;
     double tall,tio,tgm;
 	parse_command_line(argc,argv);
 	parse_y_line();
@@ -212,10 +212,10 @@ int main(int argc, char *argv[]){
 	}
 	delete[] strMeta;
 	tall = GetTimerAll();
-	cout << "io time: " << tio << endl;
-	cout << "gm time: " << tgm << endl;
-	cout << "other time: " << tall - tio - tgm << endl;
-	cout << "total time: " << tall << endl;
-	cout << "================== finish gm_sparse_phoenix ==================" << endl;
+	cerr << "io time: " << tio << endl;
+	cerr << "gm time: " << tgm << endl;
+	cerr << "other time: " << tall - tio - tgm << endl;
+	cerr << "total time: " << tall << endl;
+	cerr << "================== finish gm_sparse_phoenix ==================" << endl;
     return 0;
 }

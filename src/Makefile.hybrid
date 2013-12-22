@@ -7,13 +7,15 @@ include DefinesPG.mk
 default: \
 gm_sparse_phoenix \
 mm_sparse_graphchi
+ 
+#basic: basic.o
 
 gm_sparse_phoenix : gm_sparse_phoenix.o
 	@mkdir -p $(HOME)/bin/$(@D)
-	$(CXX) -fpermissive $(CFLAGS) -o $(HOME)/bin/$@ $@.o $(LIBS)
+	$(CPP) -fpermissive $(CFLAGS) -o $(HOME)/bin/$@ $@.o $(LIBS)
 
 gm_sparse_phoenix.o: gm_sparse_phoenix.cpp
-	$(CXX) -fpermissive $(CFLAGS) -c $< -o $@ -I$(PX_HOME)/$(INC_DIR)
+	$(CPP) -fpermissive $(CFLAGS) -c $< -o $@ -I$(PX_HOME)/$(INC_DIR)
 
 mm_sparse_graphchi: mm_sparse_graphchi.cpp
 	@mkdir -p $(HOME)/bin/$(@D)
