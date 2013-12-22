@@ -13,6 +13,7 @@
 .engine=default
 .execthreads=4
 .execthreads.count=1
+<<<<<<< HEAD
 .execthreads.min=4
 .execthreads.max=4
 .execthreads.avg=4.000000
@@ -27,6 +28,22 @@
 .iomgr_init.min=0.000095
 .iomgr_init.max=0.000095
 .iomgr_init.avg=0.000095
+=======
+.execthreads.min=8
+.execthreads.max=8
+.execthreads.avg=8.000000
+.execute-updates=0.016386
+.execute-updates.count=1
+.execute-updates.min=0.016386
+.execute-updates.max=0.016386
+.execute-updates.avg=0.016386
+.file=X.txt
+.iomgr_init=0.000210
+.iomgr_init.count=1
+.iomgr_init.min=0.000210
+.iomgr_init.max=0.000210
+.iomgr_init.avg=0.000210
+>>>>>>> a2859efc44ed72e9c5c309fc956aa6a837bf695e
 .loadthreads=4
 .loadthreads.count=1
 .loadthreads.min=4
@@ -37,11 +54,19 @@
 .membudget_mb.min=800
 .membudget_mb.max=800
 .membudget_mb.avg=800.000000
+<<<<<<< HEAD
 .memoryshard_create_edges=0.000175
 .memoryshard_create_edges.count=1
 .memoryshard_create_edges.min=0.000175
 .memoryshard_create_edges.max=0.000175
 .memoryshard_create_edges.avg=0.000175
+=======
+.memoryshard_create_edges=0.000098
+.memoryshard_create_edges.count=1
+.memoryshard_create_edges.min=0.000098
+.memoryshard_create_edges.max=0.000098
+.memoryshard_create_edges.avg=0.000098
+>>>>>>> a2859efc44ed72e9c5c309fc956aa6a837bf695e
 .niothreads=2
 .niothreads.count=1
 .niothreads.min=2
@@ -62,6 +87,7 @@
 .nvertices.min=11
 .nvertices.max=11
 .nvertices.avg=11.000000
+<<<<<<< HEAD
 .preada_now=0.000109
 .preada_now.count=3
 .preada_now.min=0.000006
@@ -72,6 +98,18 @@
 .runtime.min=0.056617
 .runtime.max=0.056617
 .runtime.avg=0.056617
+=======
+.preada_now=0.000027
+.preada_now.count=3
+.preada_now.min=0.000005
+.preada_now.max=0.000016
+.preada_now.avg=0.000009
+.runtime=0.072580
+.runtime.count=1
+.runtime.min=0.072580
+.runtime.max=0.072580
+.runtime.avg=0.072580
+>>>>>>> a2859efc44ed72e9c5c309fc956aa6a837bf695e
 .scheduler=0
 .scheduler.count=1
 .scheduler.min=0
@@ -82,6 +120,7 @@
 .serialized-updates.min=10.000000
 .serialized-updates.max=10.000000
 .serialized-updates.avg=10.000000
+<<<<<<< HEAD
 .stripedio_wait_for_reads=0.054480
 .stripedio_wait_for_reads.count=1
 .stripedio_wait_for_reads.min=0.054480
@@ -90,6 +129,16 @@
 .stripedio_wait_for_writes=0.000002
 .stripedio_wait_for_writes.count=3
 .stripedio_wait_for_writes.min=0.000000
+=======
+.stripedio_wait_for_reads=0.050416
+.stripedio_wait_for_reads.count=1
+.stripedio_wait_for_reads.min=0.050416
+.stripedio_wait_for_reads.max=0.050416
+.stripedio_wait_for_reads.avg=0.050416
+.stripedio_wait_for_writes=0.000003
+.stripedio_wait_for_writes.count=3
+.stripedio_wait_for_writes.min=0.000001
+>>>>>>> a2859efc44ed72e9c5c309fc956aa6a837bf695e
 .stripedio_wait_for_writes.max=0.000001
 .stripedio_wait_for_writes.avg=0.000001
 .stripesize=1073741824

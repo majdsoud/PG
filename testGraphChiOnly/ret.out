@@ -7,11 +7,19 @@ Please enter value for command-line argument [filetype]
 
  === REPORT FOR sharder() ===
 [Timings]
+<<<<<<< HEAD
 edata_flush:		0.000203 s
 execute_sharding:		0.100767 s
 finish_shard.sort:		1.5e-05 s
 preprocessing:		0.000287 s
 shard_final:		0.002129 s
+=======
+edata_flush:		0.001144 s
+execute_sharding:		0.005202 s
+finish_shard.sort:		1.2e-05 s
+preprocessing:		0.000398 s
+shard_final:		0.002879 s
+>>>>>>> a2859efc44ed72e9c5c309fc956aa6a837bf695e
 [Other]
 app:	sharder
 1 0 2
@@ -39,7 +47,11 @@ app:	sharder
 [Numeric]
 cachesize_mb:		0
 compression:		1
+<<<<<<< HEAD
 execthreads:		4
+=======
+execthreads:		8
+>>>>>>> a2859efc44ed72e9c5c309fc956aa6a837bf695e
 loadthreads:		4
 membudget_mb:		800
 niothreads:		2
@@ -52,6 +64,7 @@ stripesize:		1.07374e+09
 updates:		11
 work:		9
 [Timings]
+<<<<<<< HEAD
 execute-updates:		0.000314 s
 iomgr_init:		9.5e-05 s
 memoryshard_create_edges:		0.000175 s
@@ -59,6 +72,15 @@ preada_now:		0.000109s	 (count: 3, min: 6e-06s, max: 8.9e-05, avg: 3.63333e-05s)
 runtime:		0.056617 s
 stripedio_wait_for_reads:		0.05448 s
 stripedio_wait_for_writes:		2e-06s	 (count: 3, min: 0s, max: 1e-06, avg: 6.66667e-07s)
+=======
+execute-updates:		0.016386 s
+iomgr_init:		0.00021 s
+memoryshard_create_edges:		9.8e-05 s
+preada_now:		2.7e-05s	 (count: 3, min: 5e-06s, max: 1.6e-05, avg: 9e-06s)
+runtime:		0.07258 s
+stripedio_wait_for_reads:		0.050416 s
+stripedio_wait_for_writes:		3e-06s	 (count: 3, min: 1e-06s, max: 1e-06, avg: 1e-06s)
+>>>>>>> a2859efc44ed72e9c5c309fc956aa6a837bf695e
 [Other]
 app:	matrix_multiply
 engine:	default
@@ -67,4 +89,8 @@ file:	X.txt
 POS: 7
 Dependency Degree: 0.7
 
+<<<<<<< HEAD
 此程序的运行时间为: 0.023
+=======
+此程序的运行时间为: 0.320
+>>>>>>> a2859efc44ed72e9c5c309fc956aa6a837bf695e
